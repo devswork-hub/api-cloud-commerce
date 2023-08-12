@@ -1,0 +1,12 @@
+# Propriedades atualizadas conforme documentação
+# https://docs.spring.io/spring-boot/docs/3.1.2/reference/html/application-properties.html#appendix.application-properties
+
+spring:
+  application:
+    name: api-cloud-commerce
+  profiles:
+    active: local
+server:
+  port: 4000
+  servlet:
+    context-path: /api
