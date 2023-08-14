@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: cloud-commerce-db-postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: local
+      POSTGRES_PASSWORD: local
+      POSTGRES_DB: cloud-commerce-db
+    volumes:
+      - postgres-db:/data/postgres
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres-db:
+    driver: local

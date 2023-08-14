@@ -6,6 +6,15 @@ spring:
     name: api-cloud-commerce
   profiles:
     active: local
+  datasource:
+    username: local
+    password: local
+    url: jdbc:postgresql://localhost:5432/cloud-commerce-db
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
 server:
   port: 4000
   servlet:
