@@ -11,8 +11,8 @@ spring:
     password: local
     url: jdbc:postgresql://localhost:5432/cloud-commerce-db
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
 
 server:
