@@ -27,7 +27,7 @@ public class GenericBuilder<T> {
     }
 
     public <U> GenericBuilder<T> with(BiConsumer<T, U> consumer, U value) {
-        Consumer<T> c = instance -> consumer.accept(instance, value);
+        Consumer<T> c = instance -> consumer.accept(instance, value != null ? value : null);
         instanceModifiers.add(c);
         return this;
     }

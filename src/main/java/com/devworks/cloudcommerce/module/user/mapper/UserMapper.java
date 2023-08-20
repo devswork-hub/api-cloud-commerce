@@ -5,11 +5,11 @@ import com.devworks.cloudcommerce.shared.util.GenericDto;
 
 public class UserMapper {
     private UserMapper() {
-        throw new IllegalStateException("Você não pode instanciar essa classe de utilitário");
+        throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
     public static User toEntity(GenericDto<User> dto) {
-        return dto.toEntity(User::new);
+        return GenericDto.toEntity(dto, User.class);
     }
 
     public static GenericDto<User> toDto(User user) {

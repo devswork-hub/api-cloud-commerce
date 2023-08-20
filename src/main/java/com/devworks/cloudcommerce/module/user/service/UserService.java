@@ -19,11 +19,12 @@ public class UserService implements UserServiceRules {
 
     @Override
     public GenericDto<User> create(GenericDto<User> request) {
-        var existsEmail = findByEmail(request.getProperty("email").toString());
+        var existsEmail = findByEmail(request.getProperty("email"));
 
         if(Objects.nonNull(existsEmail)) {
             throw new RuntimeException("User with email already exists!");
         }
+        System.out.println(UserMapper.toEntity(request));
         var user = userRepository.save(UserMapper.toEntity(request));
         return UserMapper.toDto(user);
     }

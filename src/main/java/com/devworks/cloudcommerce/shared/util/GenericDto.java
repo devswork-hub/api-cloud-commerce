@@ -1,8 +1,10 @@
 package com.devworks.cloudcommerce.shared.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 
@@ -19,8 +21,9 @@ public class GenericDto<T> {
 
     private GenericDto() {}
 
-    public Object getProperty(String propertyName) {
-        return properties.get(propertyName);
+    public String getProperty(String propertyName) {
+        Object value = properties.get(propertyName);
+        return Objects.toString(value, "");
     }
 
     public static <T> GenericBuilder<GenericDto<T>> builder() {
@@ -29,6 +32,8 @@ public class GenericDto<T> {
 
     public static <T> GenericDto<T> toDto(T model) {
         GenericDto<T> dto = GenericDto.<T>builder().build();
+        System.out.println(dto);
+        System.out.println(model);
 
         Field[] fields = model.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -44,19 +49,22 @@ public class GenericDto<T> {
         return dto;
     }
 
-    public T toEntity(Supplier<T> entitySupplier) {
-        T entity = entitySupplier.get();
+    public static <T> T toEntity(GenericDto<T> dto, Class<T> entityClass) {
+        T entity = null;
+        try {
+            entity = entityClass.getDeclaredConstructor().newInstance();
 
-        Field[] fields = entity.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (properties.containsKey(field.getName())) {
-                field.setAccessible(true);
-                try {
-                    field.set(entity, properties.get(field.getName()));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+            Field[] fields = entityClass.getDeclaredFields();
+            for (Field field : fields) {
+                String propertyName = field.getName();
+                Object value = dto.getProperty(propertyName);
+                if (value != null) {
+                    field.setAccessible(true);
+                    field.set(entity, value);
                 }
             }
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
         }
 
         return entity;
