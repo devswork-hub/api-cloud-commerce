@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/user")
@@ -38,5 +39,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable("id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 }

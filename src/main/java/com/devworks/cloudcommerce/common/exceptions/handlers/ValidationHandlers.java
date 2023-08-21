@@ -1,8 +1,6 @@
 package com.devworks.cloudcommerce.common.exceptions.handlers;
 
-import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
-import com.devworks.cloudcommerce.common.utils.Regex;
-import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.common.utils.Converter;
 import com.devworks.cloudcommerce.common.dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +10,17 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.*;
 
 @RestControllerAdvice
-public class ValidationHandler {
+public class ValidationHandlers {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto<Map<String, String>>> methodArgumentNotValidException(MethodArgumentNotValidException m) {
         Map<String, String> errorMessages = new LinkedHashMap<>();
         m.getBindingResult().getAllErrors().forEach(err -> {
-            String field = Regex.camelToSnake(((FieldError) err).getField());
+            String field = Converter.fromCamelToSnake(((FieldError) err).getField());
             String message = err.getDefaultMessage();
             errorMessages.put(field, message);
         });
@@ -57,24 +56,13 @@ public class ValidationHandler {
         );
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponseDto<Object>> badRequestException(BadRequestException b) {
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException h) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
-                .builder()
-                .messages(b.getMessage())
-                .httpStatus(HttpStatus.BAD_REQUEST)
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .build()
-        );
-    }
-
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponseDto<Object>> notFoundException(NotFoundException b) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto
             .builder()
-            .messages(b.getMessage())
-            .httpStatus(HttpStatus.NOT_FOUND)
-            .statusCode(HttpStatus.NOT_FOUND.value())
+            .messages(h.getMessage())
+            .httpStatus(HttpStatus.BAD_REQUEST)
+            .statusCode(HttpStatus.BAD_REQUEST.value())
             .build()
         );
     }

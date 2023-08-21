@@ -10,6 +10,7 @@ import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserServiceRules {
@@ -40,5 +41,11 @@ public class UserService implements UserServiceRules {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User findById(UUID id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException("User not found"));
     }
 }
