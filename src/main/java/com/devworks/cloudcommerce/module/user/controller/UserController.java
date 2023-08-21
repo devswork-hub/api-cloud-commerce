@@ -2,6 +2,7 @@ package com.devworks.cloudcommerce.module.user.controller;
 
 import com.devworks.cloudcommerce.module.user.dto.UserDto;
 import com.devworks.cloudcommerce.module.user.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@RequestBody UserDto request) {
+    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(request));
     }
 }
