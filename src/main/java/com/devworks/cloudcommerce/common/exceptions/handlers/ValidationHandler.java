@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,11 +34,12 @@ public class ValidationHandler {
             .build());
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponseDto> badRequestException(BadRequestException b) {
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> missingServletRequestParameterException(MissingServletRequestParameterException m) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
             .builder()
-            .messages(b.getMessage())
+            .messages(m.getMessage())
             .httpStatus(HttpStatus.BAD_REQUEST)
             .statusCode(HttpStatus.BAD_REQUEST.value())
             .build()
@@ -45,7 +47,7 @@ public class ValidationHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponseDto> httpMessageNotReadableException(HttpMessageNotReadableException h) {
+    public ResponseEntity<ErrorResponseDto<Object>> httpMessageNotReadableException(HttpMessageNotReadableException h) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
             .builder()
             .messages(h.getMessage())
@@ -55,8 +57,19 @@ public class ValidationHandler {
         );
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> badRequestException(BadRequestException b) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
+                .builder()
+                .messages(b.getMessage())
+                .httpStatus(HttpStatus.BAD_REQUEST)
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .build()
+        );
+    }
+
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> notFoundException(NotFoundException b) {
+    public ResponseEntity<ErrorResponseDto<Object>> notFoundException(NotFoundException b) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDto
             .builder()
             .messages(b.getMessage())
