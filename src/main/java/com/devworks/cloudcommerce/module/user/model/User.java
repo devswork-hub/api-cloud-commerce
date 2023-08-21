@@ -1,13 +1,15 @@
 package com.devworks.cloudcommerce.module.user.model;
 
-import com.devworks.cloudcommerce.shared.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -15,14 +17,25 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity implements Serializable {
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2")
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    private UUID id;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

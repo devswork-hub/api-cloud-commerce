@@ -10,6 +10,10 @@ public class UserMapper {
 
     public static User toEntity(UserDto dto) {
         return User.builder()
+            .id(dto.getId())
+            .createdAt(dto.getCreatedAt())
+            .updatedAt(dto.getUpdatedAt())
+
             .firstName(dto.getFirstName())
             .lastName(dto.getLastName())
             .email(dto.getEmail())
@@ -22,6 +26,10 @@ public class UserMapper {
 
     public static UserDto toDto(User entity) {
         return UserDto.builder()
+            .id(entity.getId())
+            .createdAt(entity.getCreatedAt())
+            .updatedAt(entity.getUpdatedAt())
+
             .firstName(entity.getFirstName())
             .lastName(entity.getLastName())
             .email(entity.getEmail())

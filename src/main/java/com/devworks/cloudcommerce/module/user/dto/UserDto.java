@@ -7,13 +7,17 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto extends BaseDto{
-    public UserDto () {
-        super();
-    }
+public class UserDto {
+    private UUID id;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
 
     @NotEmpty
     @JsonProperty("first_name")
@@ -24,6 +28,7 @@ public class UserDto extends BaseDto{
     @JsonProperty("last_name")
     private String lastName;
 
+    @NotEmpty
     @Email
     private String email;
 
