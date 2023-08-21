@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.exceptions;
+package com.devworks.cloudcommerce.common.exceptions;
 
 public class BadRequestException extends RuntimeException  {
     public BadRequestException(String message) {
