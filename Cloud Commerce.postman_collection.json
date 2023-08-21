@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "7f0cd0f4-ad4e-4b1a-9642-f1f7ddd71637",
+		"name": "Cloud Commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"cpf\": \"12147178454\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{_}}/user",
+							"host": [
+								"{{_}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "* Get user by email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{_}}/user/email?email=local@gmail.com",
+							"host": [
+								"{{_}}"
+							],
+							"path": [
+								"user",
+								"email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "local@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "* Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{_}}/user",
+							"host": [
+								"{{_}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{_}}/user/d9df8e02-5a09-4f82-b04a-fbd962515447",
+							"host": [
+								"{{_}}"
+							],
+							"path": [
+								"user",
+								"d9df8e02-5a09-4f82-b04a-fbd962515447"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
