@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,6 +64,17 @@ public class ValidationHandlers {
             .messages(h.getMessage())
             .httpStatus(HttpStatus.BAD_REQUEST)
             .statusCode(HttpStatus.BAD_REQUEST.value())
+            .build()
+        );
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException h) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ErrorResponseDto
+            .builder()
+            .messages(h.getMessage())
+            .httpStatus(HttpStatus.METHOD_NOT_ALLOWED)
+            .statusCode(HttpStatus.METHOD_NOT_ALLOWED.value())
             .build()
         );
     }

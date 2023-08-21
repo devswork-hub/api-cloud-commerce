@@ -11,4 +11,5 @@ public interface UserServiceRules {
     User findByEmail(String email);
     List<User> findAll();
     User findById(UUID id);
+    void delete(UUID id);
 }

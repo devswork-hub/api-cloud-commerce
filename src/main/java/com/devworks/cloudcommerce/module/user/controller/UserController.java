@@ -45,4 +45,10 @@ public class UserController {
     public ResponseEntity<User> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        userService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
 }

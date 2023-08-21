@@ -48,4 +48,10 @@ public class UserService implements UserServiceRules {
         return userRepository.findById(id)
             .orElseThrow(() -> new NotFoundException("User not found"));
     }
+
+    @Override
+    public void delete(UUID id) {
+        findById(id);
+        userRepository.deleteById(id);
+    }
 }
