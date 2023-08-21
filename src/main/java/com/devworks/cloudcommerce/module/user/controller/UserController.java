@@ -1,8 +1,7 @@
 package com.devworks.cloudcommerce.module.user.controller;
 
-import com.devworks.cloudcommerce.module.user.model.User;
+import com.devworks.cloudcommerce.module.user.dto.UserDto;
 import com.devworks.cloudcommerce.module.user.service.UserService;
-import com.devworks.cloudcommerce.shared.util.GenericDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<GenericDto<User>> create(@RequestBody GenericDto<User> request) {
-        System.out.println(request.toString().toString());
+    public ResponseEntity<UserDto> create(@RequestBody UserDto request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(request));
     }
 }
