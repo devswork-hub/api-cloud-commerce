@@ -1,15 +1,15 @@
 package com.devworks.cloudcommerce.module.user.controller;
 
 import com.devworks.cloudcommerce.module.user.dto.UserDto;
+import com.devworks.cloudcommerce.module.user.model.User;
 import com.devworks.cloudcommerce.module.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -28,5 +28,15 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(request));
+    }
+
+    @GetMapping("/email")
+    public ResponseEntity<User> findByEmail(@RequestParam String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 }

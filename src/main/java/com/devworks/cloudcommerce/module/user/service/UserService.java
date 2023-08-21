@@ -9,6 +9,8 @@ import com.devworks.cloudcommerce.module.user.service.rule.UserServiceRules;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserServiceRules {
     private final UserRepository userRepository;
@@ -35,5 +37,8 @@ public class UserService implements UserServiceRules {
             .orElseThrow(() -> new NotFoundException("User with email not found"));
     }
 
-
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }
