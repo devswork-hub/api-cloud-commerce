@@ -41,7 +41,7 @@ public class UserCredentials implements UserDetails {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> roles;
+    private transient List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
