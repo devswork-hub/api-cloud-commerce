@@ -9,13 +9,96 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Role",
+					"item": [
+						{
+							"name": "* Create role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ADMIN\",\n    \"description\": \"Pode executar todas as operações sem restrições\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{_}}/role",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "* Get all roles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{_}}/role",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"role"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "* Get role by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{_}}/role/1",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"role",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "* Delete role by id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{_}}/role",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"role"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Create user",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"cpf\": \"12147178454\"\n}",
+							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local@email.com\",\n    \"cpf\": \"12147178454\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -40,7 +123,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{_}}/user/email?email=local@gmail.com",
+							"raw": "{{_}}/user/email?email=local@email.com",
 							"host": [
 								"{{_}}"
 							],
@@ -51,7 +134,7 @@
 							"query": [
 								{
 									"key": "email",
-									"value": "local@gmail.com"
+									"value": "local@email.com"
 								}
 							]
 						}
@@ -81,13 +164,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{_}}/user/d9df8e02-5a09-4f82-b04a-fbd962515447",
+							"raw": "{{_}}/user/6958d69e-1739-444a-b999-e3e0f31d04ec",
 							"host": [
 								"{{_}}"
 							],
 							"path": [
 								"user",
-								"d9df8e02-5a09-4f82-b04a-fbd962515447"
+								"6958d69e-1739-444a-b999-e3e0f31d04ec"
 							]
 						}
 					},
@@ -99,13 +182,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{_}}/user/d9df8e02-5a09-4f82-b04a-fbd962515447",
+							"raw": "{{_}}/user/6958d69e-1739-444a-b999-e3e0f31d04ec",
 							"host": [
 								"{{_}}"
 							],
 							"path": [
 								"user",
-								"d9df8e02-5a09-4f82-b04a-fbd962515447"
+								"6958d69e-1739-444a-b999-e3e0f31d04ec"
 							]
 						}
 					},
