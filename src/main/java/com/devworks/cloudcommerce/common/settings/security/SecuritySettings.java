@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.common.settings.security;
 import com.devworks.cloudcommerce.common.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
+@Order(0)
 public class SecuritySettings {
     private final CustomUserDetailsService customUserDetailsService;
 
