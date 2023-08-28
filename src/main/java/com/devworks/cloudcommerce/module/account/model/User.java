@@ -1,8 +1,7 @@
-package com.devworks.cloudcommerce.module.user.model;
+package com.devworks.cloudcommerce.module.account.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

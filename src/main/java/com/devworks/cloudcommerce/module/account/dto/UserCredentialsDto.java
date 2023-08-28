@@ -1,6 +1,6 @@
-package com.devworks.cloudcommerce.module.user.dto;
+package com.devworks.cloudcommerce.module.account.dto;
 
-import com.devworks.cloudcommerce.module.user.model.Role;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.user.routing.routes;
+package com.devworks.cloudcommerce.module.account.routing.routes;
 
 public enum UserRoute {
     DEFAULT("/user"),

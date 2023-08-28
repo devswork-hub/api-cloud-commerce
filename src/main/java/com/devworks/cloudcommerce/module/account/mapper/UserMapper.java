@@ -1,7 +1,7 @@
-package com.devworks.cloudcommerce.module.user.mapper;
+package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.user.dto.UserDto;
-import com.devworks.cloudcommerce.module.user.model.User;
+import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.model.User;
 
 public class UserMapper {
     private UserMapper() {

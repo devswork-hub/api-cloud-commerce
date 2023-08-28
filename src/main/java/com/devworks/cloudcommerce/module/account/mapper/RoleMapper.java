@@ -1,7 +1,7 @@
-package com.devworks.cloudcommerce.module.user.mapper;
+package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.user.dto.RoleDto;
-import com.devworks.cloudcommerce.module.user.model.Role;
+import com.devworks.cloudcommerce.module.account.dto.RoleDto;
+import com.devworks.cloudcommerce.module.account.model.Role;
 
 public class RoleMapper {
     private RoleMapper() {

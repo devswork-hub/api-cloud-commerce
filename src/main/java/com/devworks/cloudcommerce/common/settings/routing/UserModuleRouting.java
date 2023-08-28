@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.common.settings.routing;
 
-import com.devworks.cloudcommerce.module.user.routing.routes.RoleRoute;
-import com.devworks.cloudcommerce.module.user.routing.routes.UserRoute;
+import com.devworks.cloudcommerce.module.account.routing.routes.RoleRoute;
+import com.devworks.cloudcommerce.module.account.routing.routes.UserRoute;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

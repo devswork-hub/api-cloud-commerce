@@ -1,6 +1,6 @@
-package com.devworks.cloudcommerce.module.user.repository;
+package com.devworks.cloudcommerce.module.account.repository;
 
-import com.devworks.cloudcommerce.module.user.model.User;
+import com.devworks.cloudcommerce.module.account.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

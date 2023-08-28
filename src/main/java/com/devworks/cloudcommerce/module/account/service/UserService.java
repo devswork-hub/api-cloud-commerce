@@ -1,11 +1,11 @@
-package com.devworks.cloudcommerce.module.user.service;
+package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import com.devworks.cloudcommerce.module.user.dto.UserDto;
-import com.devworks.cloudcommerce.module.user.mapper.UserMapper;
-import com.devworks.cloudcommerce.module.user.model.User;
-import com.devworks.cloudcommerce.module.user.repository.UserRepository;
-import com.devworks.cloudcommerce.module.user.service.rule.UserServiceRules;
+import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
+import com.devworks.cloudcommerce.module.account.model.User;
+import com.devworks.cloudcommerce.module.account.repository.UserRepository;
+import com.devworks.cloudcommerce.module.account.service.rule.UserServiceRules;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 

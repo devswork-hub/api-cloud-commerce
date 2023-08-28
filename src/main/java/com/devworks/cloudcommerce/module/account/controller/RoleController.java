@@ -1,7 +1,7 @@
-package com.devworks.cloudcommerce.module.user.controller;
+package com.devworks.cloudcommerce.module.account.controller;
 
-import com.devworks.cloudcommerce.module.user.model.Role;
-import com.devworks.cloudcommerce.module.user.service.RoleService;
+import com.devworks.cloudcommerce.module.account.model.Role;
+import com.devworks.cloudcommerce.module.account.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

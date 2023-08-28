@@ -1,6 +1,6 @@
-package com.devworks.cloudcommerce.module.user.service.rule;
+package com.devworks.cloudcommerce.module.account.service.rule;
 
-import com.devworks.cloudcommerce.module.user.model.Role;
+import com.devworks.cloudcommerce.module.account.model.Role;
 
 import java.util.List;
 

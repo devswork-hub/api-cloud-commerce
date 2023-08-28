@@ -1,10 +1,10 @@
-package com.devworks.cloudcommerce.module.user.service;
+package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
-import com.devworks.cloudcommerce.module.user.model.Role;
-import com.devworks.cloudcommerce.module.user.repository.RoleRepository;
-import com.devworks.cloudcommerce.module.user.service.rule.RoleServiceRules;
+import com.devworks.cloudcommerce.module.account.model.Role;
+import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
+import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

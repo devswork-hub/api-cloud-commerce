@@ -1,7 +1,7 @@
-package com.devworks.cloudcommerce.module.user.service.rule;
+package com.devworks.cloudcommerce.module.account.service.rule;
 
-import com.devworks.cloudcommerce.module.user.dto.UserDto;
-import com.devworks.cloudcommerce.module.user.model.User;
+import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.model.User;
 
 import java.util.List;
 import java.util.UUID;

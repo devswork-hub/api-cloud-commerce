@@ -1,8 +1,8 @@
-package com.devworks.cloudcommerce.module.user.controller;
+package com.devworks.cloudcommerce.module.account.controller;
 
-import com.devworks.cloudcommerce.module.user.dto.UserDto;
-import com.devworks.cloudcommerce.module.user.model.User;
-import com.devworks.cloudcommerce.module.user.service.UserService;
+import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.model.User;
+import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

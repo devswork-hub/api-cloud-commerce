@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.common.services;
 
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
-import com.devworks.cloudcommerce.module.user.repository.UserCredentialsRepository;
+import com.devworks.cloudcommerce.module.account.repository.UserCredentialsRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

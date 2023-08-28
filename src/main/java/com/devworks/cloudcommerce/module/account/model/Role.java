@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.user.model;
+package com.devworks.cloudcommerce.module.account.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
