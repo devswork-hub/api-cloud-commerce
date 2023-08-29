@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 public class RoleDto {
     @Null(message = "attribute id most be null")
-    private Long id;
+    private UUID id;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
