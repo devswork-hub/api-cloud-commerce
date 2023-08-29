@@ -2,7 +2,7 @@ package com.devworks.cloudcommerce.common.utils;
 
 public class Converter {
     private Converter() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
     public static String fromCamelToSnake(String input) {
