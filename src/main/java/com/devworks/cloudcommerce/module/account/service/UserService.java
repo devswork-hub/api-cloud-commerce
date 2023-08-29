@@ -54,4 +54,25 @@ public class UserService implements UserServiceRules {
         findById(id);
         userRepository.deleteById(id);
     }
+
+    private User assignDefaultRoleToUser(User user) {
+        var roles = user.getRoles();
+
+        if (roles == null) {
+            roles = new HashSet<>();
+            user.setRoles(roles);
+        }
+
+        Role customerRole = roleRepository.findByName(RolesTypes.CUSTOMER.getName())
+            .orElseGet(() -> { // Create customer role if it doesn't exist
+                Role defaultRole = new Role();
+                defaultRole.setName(RolesTypes.CUSTOMER.getName());
+                defaultRole.setDescription(RolesTypes.CUSTOMER.getDescription());
+                return roleRepository.save(defaultRole);
+            });
+
+        roles.add(customerRole);
+
+        return user;
+    }
 }
