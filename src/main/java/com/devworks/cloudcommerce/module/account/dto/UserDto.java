@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,6 +9,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -16,6 +18,8 @@ import java.util.UUID;
 @Builder
 public class UserDto {
     private UUID id;
+
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
@@ -44,4 +48,6 @@ public class UserDto {
 
     @JsonProperty("phone_code_area")
     private String phoneCodeArea;
+
+    private Set<Role> roles;
 }
