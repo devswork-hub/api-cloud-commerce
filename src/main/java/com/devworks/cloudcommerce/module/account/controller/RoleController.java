@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/role")
@@ -30,12 +31,12 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Role> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
         roleService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
