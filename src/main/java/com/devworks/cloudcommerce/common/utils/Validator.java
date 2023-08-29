@@ -7,7 +7,7 @@ public class Validator {
         Pattern.compile("\"^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$\"");
 
     private Validator() {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
     public static boolean checkIsUUID(String value) {
