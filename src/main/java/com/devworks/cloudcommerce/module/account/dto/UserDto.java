@@ -36,7 +36,6 @@ public class UserDto {
     @Email
     private String email;
 
-    @NotEmpty
     @CPF
     private String cpf;
 

@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.dto.inputs.SignUpInput;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.validation.Valid;
@@ -27,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto request) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.create(request));
+    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto input) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.create(input));
     }
 
     @GetMapping("/email")

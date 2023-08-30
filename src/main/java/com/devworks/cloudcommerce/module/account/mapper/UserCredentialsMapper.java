@@ -17,7 +17,7 @@ public class UserCredentialsMapper {
             .email(dto.getEmail())
             .username(dto.getUsername())
             .password(dto.getPassword())
-            .roles(dto.getRoles())
+            .accountStatus(dto.getAccountStatus())
             .build();
     }
 
@@ -30,7 +30,7 @@ public class UserCredentialsMapper {
             .email(entity.getEmail())
             .username(entity.getUsername())
             .password(entity.getPassword())
-            .roles(entity.getRoles())
+            .accountStatus(entity.getAccountStatus())
             .build();
     }
 }
