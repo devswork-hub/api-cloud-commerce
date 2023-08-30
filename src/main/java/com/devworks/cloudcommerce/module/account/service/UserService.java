@@ -21,19 +21,21 @@ public class UserService implements UserServiceRules {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository) {
+    public UserService(
+        UserRepository userRepository,
+        RoleRepository roleRepository
+    ) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
 
     @Override
-    public UserDto create(UserDto request) {
-        var existsEmail = userRepository.findByEmail(request.getEmail());
+    public UserDto create(UserDto input) {
+        var existsEmail = userRepository.findByEmail(input.getEmail());
         if(existsEmail.isPresent())
             throw new BadRequestException("User with email already exists!");
 
-        var user = assignDefaultRoleToUser(UserMapper.toEntity(request));
+        var user = assignDefaultRoleToUser(UserMapper.toEntity(input));
 
         var createdUser = userRepository.save(user);
         return UserMapper.toDto(createdUser);
