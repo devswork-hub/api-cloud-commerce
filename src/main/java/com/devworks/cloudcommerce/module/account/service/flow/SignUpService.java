@@ -1,10 +1,9 @@
 package com.devworks.cloudcommerce.module.account.service.flow;
 
+import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
 import com.devworks.cloudcommerce.module.account.dto.inputs.SignUpInput;
-import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
-import com.devworks.cloudcommerce.module.account.model.UserCredentials;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,9 +36,9 @@ public class SignUpService {
 
         userService.create(UserMapper.toDto(user));
 
-        var userCredentials = new UserCredentials();
+        var userCredentials = new UserCredentialsDto();
         userCredentials.setEmail(input.getEmail());
         userCredentials.setPassword(passwordEncoder.encode(input.getPassword()));
-        userCredentialsService.assignCredentialsToUser(user, UserCredentialsMapper.toDto(userCredentials));
+        userCredentialsService.create(userCredentials);
     }
 }
