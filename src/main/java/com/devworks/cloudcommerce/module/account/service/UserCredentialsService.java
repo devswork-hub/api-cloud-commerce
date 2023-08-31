@@ -24,6 +24,15 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         this.userService = userService;
     }
 
+    public void create(UserCredentialsDto input) {
+        var existsEmail = userCredentialsRepository.findByEmail(input.getEmail());
+
+        if(existsEmail.isPresent())
+            throw new BadRequestException("User credentials is already exists");
+
+        userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
+    }
+
     public void assignCredentialsToUser(User user, UserCredentialsDto input) {
         userService.findById(user.getId());
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));

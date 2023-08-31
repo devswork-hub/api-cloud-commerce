@@ -5,13 +5,12 @@ import com.devworks.cloudcommerce.module.account.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/role")
 public class RoleController {
     private final RoleService roleService;
