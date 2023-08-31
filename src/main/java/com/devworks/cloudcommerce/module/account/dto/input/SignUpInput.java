@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.account.dto.inputs;
+package com.devworks.cloudcommerce.module.account.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;

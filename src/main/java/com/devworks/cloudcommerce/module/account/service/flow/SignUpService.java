@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.module.account.service.flow;
 
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
-import com.devworks.cloudcommerce.module.account.dto.inputs.SignUpInput;
+import com.devworks.cloudcommerce.module.account.dto.input.SignUpInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;

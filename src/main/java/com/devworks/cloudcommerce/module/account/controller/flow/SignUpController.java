@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.module.account.controller.flow;
 
-import com.devworks.cloudcommerce.module.account.dto.inputs.SignUpInput;
+import com.devworks.cloudcommerce.module.account.dto.input.SignUpInput;
 import com.devworks.cloudcommerce.module.account.service.flow.SignUpService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
