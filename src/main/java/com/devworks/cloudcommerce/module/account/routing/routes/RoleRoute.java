@@ -1,8 +1,9 @@
 package com.devworks.cloudcommerce.module.account.routing.routes;
 
+
 public enum RoleRoute {
-    DEFAULT("/role"),
-    ALL_ROUTES_CHILD("/role/*");
+    BASE("/role"),
+    ALL_CHILDREN("/role/*");
 
     private final String value;
 

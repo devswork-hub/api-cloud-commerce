@@ -1,8 +1,8 @@
 package com.devworks.cloudcommerce.module.account.routing.routes;
 
 public enum UserRoute {
-    DEFAULT("/user"),
-    USER_ALL_ROUTES_CHILD("/user/*");
+    BASE("/user"),
+    ALL_CHILDREN("/user/*");
 
     private final String value;
 
