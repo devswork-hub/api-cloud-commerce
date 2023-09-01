@@ -33,6 +33,11 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
     }
 
+    public UserCredentials findByEmail(String email) {
+        return userCredentialsRepository.findByEmail(email)
+            .orElseThrow(() -> new NotFoundException("User with credential not found"));
+    }
+
     public void assignCredentialsToUser(User user, UserCredentialsDto input) {
         userService.findById(user.getId());
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
@@ -46,6 +51,6 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
             return userCredentials;
         }
 
-        throw new BadRequestException("Invalid email/username or password");
+        throw new BadRequestException("Invalid email/username and password");
     }
 }
