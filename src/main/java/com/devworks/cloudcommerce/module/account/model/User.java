@@ -43,7 +43,7 @@ public class User implements Serializable {
     @Column(name = "phone_code_area")
     private String phoneCodeArea;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
         cascade = {
             CascadeType.MERGE,
             CascadeType.PERSIST
