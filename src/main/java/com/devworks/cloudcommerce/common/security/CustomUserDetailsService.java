@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.common.services;
+package com.devworks.cloudcommerce.common.security;
 
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import com.devworks.cloudcommerce.module.account.service.UserService;

@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.common.settings.security;
 
-import com.devworks.cloudcommerce.common.services.CustomUserDetailsService;
+import com.devworks.cloudcommerce.common.security.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
