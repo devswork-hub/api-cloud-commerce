@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.model;
 
+import com.devworks.cloudcommerce.module.account.constants.ResourcePermissionTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,8 @@ public class ResourcePermission {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ResourcePermissionTypes name;
 
     @ManyToOne
     @JoinColumn(name = "resource_id")

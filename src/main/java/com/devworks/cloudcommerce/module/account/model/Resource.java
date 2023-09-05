@@ -1,11 +1,10 @@
 package com.devworks.cloudcommerce.module.account.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -27,5 +26,17 @@ public class Resource {
     private Module moduleId;
 
     private String link;
+
+    @ManyToMany(fetch = FetchType.EAGER,
+        cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST
+        }
+    )
+    @JoinTable(name = "role_resources",
+        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "resource_permission_id", referencedColumnName = "id")
+    )
+    private final Set<ResourcePermission> resourcePermissions = new HashSet<>();
 
 }
