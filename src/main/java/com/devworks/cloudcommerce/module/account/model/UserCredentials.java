@@ -29,8 +29,14 @@ public class UserCredentials implements Serializable {
     private LocalDateTime updatedAt;
 
     private String email;
+
     private String username;
-    private String password;
+
+    @Column(name = "password_hash")
+    private String passwordHash;
+
+    @Column(name = "password_salt")
+    private String passwordSalt;
 
     @Enumerated(EnumType.STRING)
     private AccountStatusTypes accountStatus;

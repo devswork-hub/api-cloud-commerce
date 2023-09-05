@@ -19,17 +19,19 @@ public class UserCredentialsDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @NotEmpty
+    @NotEmpty(message = "attribute email is required")
     @Email
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "attribute username is required")
     @Size(min = 8, message = "username should have at least 8 characters")
     private String username;
 
-    @NotEmpty
-    @Size(min = 8, message = "password should have at least 8 characters")
-    private String password;
+    @NotEmpty(message = "attribute password_hash is required")
+    private String passwordHash;
+
+    @NotEmpty(message = "attribute password_salt is required")
+    private String passwordSalt;
 
     private AccountStatusTypes accountStatus;
 }

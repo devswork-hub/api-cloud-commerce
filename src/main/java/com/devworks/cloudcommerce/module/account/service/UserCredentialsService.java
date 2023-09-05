@@ -25,10 +25,7 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
     }
 
     public void create(UserCredentialsDto input) {
-        var existsEmail = userCredentialsRepository.findByEmail(input.getEmail());
-
-        if(existsEmail.isPresent())
-            throw new BadRequestException("User credentials is already exists");
+        findByEmailAndPassword(input.getEmail());
 
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
     }
@@ -43,14 +40,18 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
     }
 
-    public UserCredentials findByEmailAndPassword(String email, String password) {
+    public UserCredentials findByEmailAndPassword(String email) {
         var userCredentials = userCredentialsRepository.findByEmail(email)
             .orElseThrow(() -> new NotFoundException("Not found user with email " + email));
 
-        if(PasswordUtils.matches(password, userCredentials.getPassword())) {
-            return userCredentials;
+        if(!checkIsValidPassword(userCredentials, userCredentials.getPasswordHash())) {
+            throw new BadRequestException("Invalid email/username and password");
         }
+        return userCredentials;
+    }
 
-        throw new BadRequestException("Invalid email/username and password");
+    private boolean checkIsValidPassword(UserCredentials userCredentials, String password) {
+        var passwordWithSalt = password + userCredentials.getPasswordSalt();
+        return PasswordUtils.matches(passwordWithSalt, userCredentials.getPasswordHash());
     }
 }

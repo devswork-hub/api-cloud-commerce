@@ -31,7 +31,6 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = true)
     private String cpf;
 
     @Column(name = "phone_number")
