@@ -1,6 +1,9 @@
 package com.devworks.cloudcommerce.module.account.constants;
 
-public enum ResourcePermissionTypes {
+import lombok.Getter;
+
+@Getter
+public enum PermissionTypes {
     CREATE("CREATE", "Permite criar um novo registro"),
     READ("READ", "Permite a leitura de informações e gerenciamento de produtos, pedidos e usuários por um gerente de loja, além de acesso a relatórios e análises."),
     WRITE("WRITE", "Administrador do sistema com acesso total a todas as funcionalidades, configurações e recursos da plataforma."),
@@ -13,16 +16,9 @@ public enum ResourcePermissionTypes {
     private final String name;
     private final String description;
 
-    ResourcePermissionTypes(String name, String description) {
+    PermissionTypes(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

@@ -27,16 +27,10 @@ public class Resource {
 
     private String link;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-        cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST
-        }
-    )
-    @JoinTable(name = "role_resources",
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "resource_permissions",
         joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_permission_id", referencedColumnName = "id")
     )
-    private final Set<ResourcePermission> resourcePermissions = new HashSet<>();
-
+    private Set<Permission> resourcePermissions = new HashSet<>();
 }
