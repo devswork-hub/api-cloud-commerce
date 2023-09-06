@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "resource_permissions")
+@Table(name = "permissions")
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

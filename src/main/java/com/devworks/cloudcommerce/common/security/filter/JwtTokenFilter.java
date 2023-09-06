@@ -3,7 +3,6 @@ package com.devworks.cloudcommerce.common.security.filter;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.security.JwtService;
 import com.devworks.cloudcommerce.common.utils.HttpUtils;
-import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,15 +14,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserService userService;
 
-    public JwtFilter(JwtService jwtService, UserService userService) {
+    public JwtTokenFilter(JwtService jwtService) {
         this.jwtService = jwtService;
-        this.userService = userService;
     }
 
     @Override
@@ -35,8 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         var token = HttpUtils.getHeaderToken(request);
 
-        if(token != null)
-            authenticateByToken(token);
+        if(token != null) authenticateByToken(token);
 
         filterChain.doFilter(request, response);
     }
@@ -44,15 +41,8 @@ public class JwtFilter extends OncePerRequestFilter {
     private void authenticateByToken(String token) {
         try {
             var subject = jwtService.getSubject(token);
-            var user = userService.findByEmail(subject);
-
-            SecurityContextHolder
-                .getContext()
-                .setAuthentication(new UsernamePasswordAuthenticationToken(
-                    user,
-                    null,
-                    user.getAuthorities())
-                );
+            var auth = new UsernamePasswordAuthenticationToken(subject,null, new ArrayList<>());
+            SecurityContextHolder.getContext().setAuthentication(auth);
         } catch(Exception e) {
             throw new BadRequestException(e.getMessage());
         }

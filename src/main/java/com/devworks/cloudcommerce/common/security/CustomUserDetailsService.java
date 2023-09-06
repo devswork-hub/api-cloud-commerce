@@ -22,13 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("004");
 
         var user = userService.findByEmail(email);
         var userCredentials = userCredentialsService.findByEmail(email);
 
         return new User(
             userCredentials.getEmail(),
-            userCredentials.getPassword(),
+            userCredentials.getPasswordHash(),
             true,
             true,
             true,
