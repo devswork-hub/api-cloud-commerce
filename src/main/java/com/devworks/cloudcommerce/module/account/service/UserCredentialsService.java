@@ -3,31 +3,66 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
+import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.model.UserCredentials;
+import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.repository.UserCredentialsRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.UserCredentialsServiceRules;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class UserCredentialsService implements UserCredentialsServiceRules {
+    private final RoleRepository roleRepository;
     private final UserCredentialsRepository userCredentialsRepository;
     private final UserService userService;
 
+
     public UserCredentialsService(
+        RoleRepository roleRepository,
         UserCredentialsRepository userCredentialsRepository,
         UserService userService
     ) {
+        this.roleRepository = roleRepository;
         this.userCredentialsRepository = userCredentialsRepository;
         this.userService = userService;
     }
 
     public void create(UserCredentialsDto input) {
-        findByEmailAndPassword(input.getEmail());
+        var existsUserCredentials = userCredentialsRepository.findByEmail(input.getEmail());
 
-        userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
+        if (existsUserCredentials.isPresent())
+            throw new BadRequestException("Credentials with email already exists!");
+
+        var userCredentials = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input));
+        userCredentialsRepository.save(userCredentials);
+    }
+
+    private UserCredentials assignRoleToUserCredentials(UserCredentials credentials) {
+        var roles = credentials.getRoles();
+
+        if (roles == null) {
+            roles = new HashSet<>();
+            credentials.setRoles(roles);
+        }
+
+        Role customerRole = roleRepository.findByName(RolesTypes.CUSTOMER.getName())
+            .orElseGet(() -> { // Create customer role if it doesn't exist
+                Role defaultRole = new Role();
+                defaultRole.setName(RolesTypes.CUSTOMER.getName());
+                defaultRole.setDescription(RolesTypes.CUSTOMER.getDescription());
+                return roleRepository.save(defaultRole);
+            });
+
+        roles.add(customerRole);
+
+        return credentials;
+
     }
 
     public UserCredentials findByEmail(String email) {

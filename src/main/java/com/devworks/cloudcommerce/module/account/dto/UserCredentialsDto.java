@@ -1,12 +1,14 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusTypes;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -34,4 +36,5 @@ public class UserCredentialsDto {
     private String passwordSalt;
 
     private AccountStatusTypes accountStatus;
+    private Set<Role> roles;
 }

@@ -22,7 +22,6 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<LoginOutput> login(@Valid @RequestBody LoginInput input) {
-        System.out.println("001.2");
-        return  ResponseEntity.status(HttpStatus.OK).body(loginService.execute(input));
+        return ResponseEntity.status(HttpStatus.OK).body(loginService.execute(input));
     }
 }

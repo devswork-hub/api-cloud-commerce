@@ -1,8 +1,8 @@
-package com.devworks.cloudcommerce.common.settings.security;
+package com.devworks.cloudcommerce.common.settings;
 
 import com.devworks.cloudcommerce.common.security.filter.JwtTokenFilter;
 import com.devworks.cloudcommerce.common.security.provider.JwtAuthenticationProvider;
-import com.devworks.cloudcommerce.common.settings.routing.AccountModuleRouting;
+import com.devworks.cloudcommerce.module.account.routing.AccountModuleRouting;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.common.settings.routing;
+package com.devworks.cloudcommerce.module.account.routing;
 
 import com.devworks.cloudcommerce.module.account.routing.routes.RoleRoute;
 import com.devworks.cloudcommerce.module.account.routing.routes.UserRoute;

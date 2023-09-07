@@ -25,10 +25,10 @@ public class RoleDto {
     private LocalDateTime updatedAt;
 
     @NotEmpty(message = "attribute name is required")
-    @Size(min = 3, message = "firstName should have at least 3 characters")
+    @Size(min = 3, message = "name should have at least 3 characters")
     private String name;
 
     @NotEmpty(message = "attribute description is required")
-    @Size(min = 10, message = "firstName should have at least 10 characters")
+    @Size(min = 10, message = "description should have at least 10 characters")
     private String description;
 }
