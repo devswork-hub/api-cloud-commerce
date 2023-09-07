@@ -1,7 +1,8 @@
-package com.devworks.cloudcommerce.common.settings.security;
+package com.devworks.cloudcommerce.common.settings;
 
-import com.devworks.cloudcommerce.common.security.filter.JwtFilter;
-import com.devworks.cloudcommerce.common.settings.routing.AccountModuleRouting;
+import com.devworks.cloudcommerce.common.security.filter.JwtTokenFilter;
+import com.devworks.cloudcommerce.common.security.provider.JwtAuthenticationProvider;
+import com.devworks.cloudcommerce.module.account.routing.AccountModuleRouting;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,10 +17,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class RoutingSettings {
     private final AccountModuleRouting accountModuleRouting;
-    private final JwtFilter jwtFilter;
+    private final JwtAuthenticationProvider jwtAuthenticationProvider;
+    private final JwtTokenFilter jwtTokenFilter;
 
-    public RoutingSettings(AccountModuleRouting accountModuleRouting, JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
+    public RoutingSettings(AccountModuleRouting accountModuleRouting, JwtAuthenticationProvider jwtAuthenticationProvider, JwtTokenFilter jwtTokenFilter) {
+        this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.jwtTokenFilter = jwtTokenFilter;
         this.accountModuleRouting = accountModuleRouting;
     }
 
@@ -29,7 +32,8 @@ public class RoutingSettings {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+            .authenticationProvider(jwtAuthenticationProvider)
             .logout(l ->
                 l.logoutSuccessHandler(
                     (request, response, authentication) -> SecurityContextHolder.clearContext()

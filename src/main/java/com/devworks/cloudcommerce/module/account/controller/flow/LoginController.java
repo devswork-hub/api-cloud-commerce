@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/authenticate")
 public class LoginController {
     private final LoginService loginService;
 
@@ -22,6 +22,6 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<LoginOutput> login(@Valid @RequestBody LoginInput input) {
-        return  ResponseEntity.status(HttpStatus.OK).body(loginService.execute(input));
+        return ResponseEntity.status(HttpStatus.OK).body(loginService.execute(input));
     }
 }

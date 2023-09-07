@@ -1,27 +1,30 @@
 package com.devworks.cloudcommerce.module.account.service.flow;
 
+import com.devworks.cloudcommerce.common.security.EncryptingService;
+import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
 import com.devworks.cloudcommerce.module.account.dto.input.SignUpInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import com.devworks.cloudcommerce.module.account.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+
 @Service
 public class SignUpService {
-    private final PasswordEncoder passwordEncoder;
+    private final EncryptingService encryptingService;
     private final UserService userService;
     private final UserCredentialsService userCredentialsService;
 
     public SignUpService(
-        PasswordEncoder passwordEncoder,
-        UserService userService,
-        UserCredentialsService userCredentialsService
+            EncryptingService encryptingService, UserService userService,
+            UserCredentialsService userCredentialsService
     ) {
-        this.passwordEncoder = passwordEncoder;
+        this.encryptingService = encryptingService;
         this.userService = userService;
         this.userCredentialsService = userCredentialsService;
     }
@@ -36,9 +39,15 @@ public class SignUpService {
 
         userService.create(UserMapper.toDto(user));
 
+        var salt = encryptingService.generateSalt();
+        var combinedPasswordAndSalt = input.getPassword() + salt;
+        var passwordHash = encryptingService.encrypt(combinedPasswordAndSalt);
+
         var userCredentials = new UserCredentialsDto();
         userCredentials.setEmail(input.getEmail());
-        userCredentials.setPassword(passwordEncoder.encode(input.getPassword()));
+        userCredentials.setPasswordSalt(salt);
+        userCredentials.setPasswordHash(passwordHash);
+
         userCredentialsService.create(userCredentials);
     }
 }

@@ -1,12 +1,9 @@
-package com.devworks.cloudcommerce.module.account.model;
+package com.devworks.cloudcommerce.common.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -14,19 +11,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "roles")
-public class Role implements Serializable {
+@MappedSuperclass
+public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
-    private String name;
-    private String description;
 
     @Column(name = "created_at", updatable = false)
     @Builder.Default
-    private final LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

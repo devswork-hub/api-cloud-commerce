@@ -1,5 +1,8 @@
 package com.devworks.cloudcommerce.module.account.constants;
 
+import lombok.Getter;
+
+@Getter
 public enum AccountStatusTypes {
     ACTIVE("Ativo", "A conta está em um estado normal e pode ser usada para acessar o sistema"),
     INACTIVE("Inativo", "A conta está temporariamente inativa, geralmente por escolha do usuário. Eles podem reativar a conta quando desejarem"),
@@ -16,11 +19,4 @@ public enum AccountStatusTypes {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

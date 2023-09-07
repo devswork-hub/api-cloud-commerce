@@ -3,34 +3,66 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
+import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.model.UserCredentials;
+import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.repository.UserCredentialsRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.UserCredentialsServiceRules;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class UserCredentialsService implements UserCredentialsServiceRules {
+    private final RoleRepository roleRepository;
     private final UserCredentialsRepository userCredentialsRepository;
     private final UserService userService;
 
+
     public UserCredentialsService(
+        RoleRepository roleRepository,
         UserCredentialsRepository userCredentialsRepository,
         UserService userService
     ) {
+        this.roleRepository = roleRepository;
         this.userCredentialsRepository = userCredentialsRepository;
         this.userService = userService;
     }
 
     public void create(UserCredentialsDto input) {
-        var existsEmail = userCredentialsRepository.findByEmail(input.getEmail());
+        var existsUserCredentials = userCredentialsRepository.findByEmail(input.getEmail());
 
-        if(existsEmail.isPresent())
-            throw new BadRequestException("User credentials is already exists");
+        if (existsUserCredentials.isPresent())
+            throw new BadRequestException("Credentials with email already exists!");
 
-        userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
+        var userCredentials = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input));
+        userCredentialsRepository.save(userCredentials);
+    }
+
+    private UserCredentials assignRoleToUserCredentials(UserCredentials credentials) {
+        var roles = credentials.getRoles();
+
+        if (roles == null) {
+            roles = new HashSet<>();
+            credentials.setRoles(roles);
+        }
+
+        Role customerRole = roleRepository.findByName(RolesTypes.CUSTOMER.getName())
+            .orElseGet(() -> { // Create customer role if it doesn't exist
+                Role defaultRole = new Role();
+                defaultRole.setName(RolesTypes.CUSTOMER.getName());
+                defaultRole.setDescription(RolesTypes.CUSTOMER.getDescription());
+                return roleRepository.save(defaultRole);
+            });
+
+        roles.add(customerRole);
+
+        return credentials;
+
     }
 
     public UserCredentials findByEmail(String email) {
@@ -43,14 +75,18 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
     }
 
-    public UserCredentials findByEmailAndPassword(String email, String password) {
+    public UserCredentials findByEmailAndPassword(String email) {
         var userCredentials = userCredentialsRepository.findByEmail(email)
             .orElseThrow(() -> new NotFoundException("Not found user with email " + email));
 
-        if(PasswordUtils.matches(password, userCredentials.getPassword())) {
-            return userCredentials;
+        if(!checkIsValidPassword(userCredentials, userCredentials.getPasswordHash())) {
+            throw new BadRequestException("Invalid email/username and password");
         }
+        return userCredentials;
+    }
 
-        throw new BadRequestException("Invalid email/username and password");
+    private boolean checkIsValidPassword(UserCredentials userCredentials, String password) {
+        var passwordWithSalt = password + userCredentials.getPasswordSalt();
+        return PasswordUtils.matches(passwordWithSalt, userCredentials.getPasswordHash());
     }
 }

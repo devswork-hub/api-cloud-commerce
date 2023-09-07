@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.common.settings.routing;
+package com.devworks.cloudcommerce.module.account.routing;
 
 import com.devworks.cloudcommerce.module.account.routing.routes.RoleRoute;
 import com.devworks.cloudcommerce.module.account.routing.routes.UserRoute;
@@ -12,7 +12,7 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
     public void accountRoutingChains(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
-            .requestMatchers(HttpMethod.POST, "/login").permitAll()
+            .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
 
             .requestMatchers(HttpMethod.GET, UserRoute.BASE.getValue()).authenticated()
             .requestMatchers(HttpMethod.GET, UserRoute.ALL_CHILDREN.getValue()).authenticated()
