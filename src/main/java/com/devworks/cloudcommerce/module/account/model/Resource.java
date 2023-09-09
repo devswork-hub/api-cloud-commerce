@@ -21,11 +21,11 @@ public class Resource {
 
     private String name;
 
+    private String link;
+
     @ManyToOne
     @JoinColumn(name = "module_id")
     private Module moduleId;
-
-    private String link;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "resource_permissions",

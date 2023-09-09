@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -22,4 +24,11 @@ public class Module {
 
     private String name;
     private int priority;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "modules_resources",
+        joinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
+    )
+    private Set<Resource> resources = new HashSet<>();
 }
