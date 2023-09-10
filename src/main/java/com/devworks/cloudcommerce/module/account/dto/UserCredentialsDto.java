@@ -4,6 +4,7 @@ import com.devworks.cloudcommerce.module.account.constants.AccountStatusTypes;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class UserCredentialsDto {
+    @Null(message = "attribute id most be null")
     private UUID id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

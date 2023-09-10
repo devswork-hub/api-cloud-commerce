@@ -19,7 +19,11 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String description;
 
     @Column(name = "created_at", updatable = false)

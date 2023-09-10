@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.module.account.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class UserDto {
+    @Null(message = "attribute id most be null")
     private UUID id;
 
     @Builder.Default
