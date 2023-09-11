@@ -1,5 +1,8 @@
 package com.devworks.cloudcommerce.common.utils;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.util.regex.Pattern;
 
 public class Validator {
@@ -10,7 +13,7 @@ public class Validator {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static boolean checkIsUUID(String value) {
+    public static boolean isValidUUID(String value) {
         if (value == null) {
             return false;
         }
@@ -24,5 +27,14 @@ public class Validator {
             }
         }
         return false;
+    }
+
+    public static boolean isValidPath(String input) {
+        if (!input.startsWith("/")) return false;
+
+        PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**");
+        Path path = Path.of(input);
+
+        return matcher.matches(path);
     }
 }

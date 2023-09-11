@@ -22,12 +22,6 @@ public class Role implements Serializable {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private String description;
-
     @Column(name = "created_at", updatable = false)
     @Builder.Default
     private final LocalDateTime createdAt = LocalDateTime.now();
@@ -35,10 +29,17 @@ public class Role implements Serializable {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_resources",
         joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
     )
-    private Set<Resource> resources = new HashSet<>();
+    @Builder.Default
+    private transient Set<Resource> resources = new HashSet<>();
 }

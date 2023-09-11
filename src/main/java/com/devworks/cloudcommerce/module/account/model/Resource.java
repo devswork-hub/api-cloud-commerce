@@ -16,16 +16,26 @@ import java.util.UUID;
 @Entity
 @Table(name = "resources")
 public class Resource {
+    // Base Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // Required Attributes
     @Column(nullable = false)
     private String name;
 
-    private String link;
+    @Column(nullable = false)
+    private String path;
 
+    // Optionals
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = true)
     private Group group;
@@ -33,15 +43,9 @@ public class Resource {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
     @JoinTable(name = "resource_permissions",
-        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "resource_permission_id", referencedColumnName = "id")
+      joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
-    private Set<Permission> resourcePermissions = new HashSet<>();
-
-    @Column(name = "created_at", updatable = false)
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private Set<Permission> permissions = new HashSet<>();
 }

@@ -16,20 +16,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class GroupDto {
-//    @Null(message = "attribute id most be null")
-    private UUID id;
+  @Null(message = "attribute id most be null")
+  private UUID id;
 
-    @NotEmpty(message = "attribute name is required")
-    private String name;
+  @NotEmpty(message = "attribute name is required")
+  private String name;
 
-    private int priority;
+  private int priority;
 
-    @NotEmpty(message = "attribute resources [] is required")
-    private Set<Resource> resources;
+  @NotEmpty(message = "attribute resources [] is required")
+  private Set<Resource> resources;
 
-    @JsonProperty("created_at")
-    private LocalDateTime createdAt;
+  @JsonProperty("created_at")
+  private LocalDateTime createdAt;
 
-    @JsonProperty("updated_at")
-    private LocalDateTime updatedAt;
+  @JsonProperty("updated_at")
+  private LocalDateTime updatedAt;
 }

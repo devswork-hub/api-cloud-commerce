@@ -31,6 +31,7 @@ public class Group {
         joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
     )
+    @Builder.Default
     private Set<Resource> resources = new HashSet<>();
 
     @Column(name = "created_at", updatable = false)
