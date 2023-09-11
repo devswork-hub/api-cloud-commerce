@@ -3,7 +3,6 @@ package com.devworks.cloudcommerce.common.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

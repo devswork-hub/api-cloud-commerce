@@ -2,22 +2,30 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
+import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
+import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.Role;
+import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class RoleService implements RoleServiceRules {
     private final RoleRepository roleRepository;
+    private final ResourceRepository resourceRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, ResourceRepository resourceRepository) {
         this.roleRepository = roleRepository;
+        this.resourceRepository = resourceRepository;
     }
+
 
     @Override
     public Role create(Role request) {
@@ -26,14 +34,7 @@ public class RoleService implements RoleServiceRules {
             throw new BadRequestException("Role has already been declared");
         }
 
-        boolean validRoleType = false;
-        for (RolesTypes enumValue : RolesTypes.values()) {
-            if (enumValue.getName().equals(request.getName())) {
-                validRoleType = true;
-                break;
-            }
-        }
-        if (!validRoleType) {
+        if (!Validator.isValidEnum(RolesTypes.class, request.getName())) {
             throw new BadRequestException("Invalid role type");
         }
 
@@ -55,5 +56,31 @@ public class RoleService implements RoleServiceRules {
     public void delete(UUID id) {
         findById(id);
         roleRepository.deleteById(id);
+    }
+
+    public void assignResourcesToRole(UUID roleId, Set<UUID> resourcesIds) {
+        var role = findById(roleId);
+        var newResources = new HashSet<Resource>();
+
+        if (hasResourcesAssigned(roleId)) {
+            throw new IllegalStateException("Recursos já estão atribuídos a esta role.");
+        }
+
+        for(UUID resourceId : resourcesIds) {
+            var existsResource = resourceRepository.findById(resourceId);
+
+            if(existsResource.isPresent()) {
+                newResources.add(existsResource.get());
+            } else {
+                throw new BadRequestException("Recurso não encontrado com ID: " + resourceId);
+            }
+        }
+        role.setResources(newResources);
+        roleRepository.save(role);
+    }
+
+    private boolean hasResourcesAssigned(UUID roleId) {
+        Role role = findById(roleId);
+        return role != null && !role.getResources().isEmpty();
     }
 }

@@ -16,4 +16,13 @@ public class Validator {
         }
         return UUID_REGEX_PATTERN.matcher(value).matches();
     }
+
+    public static <T extends Enum<T>> boolean isValidEnum(Class<T> enumClass, String value) {
+        for (T enumValue : enumClass.getEnumConstants()) {
+            if (enumValue.name().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
