@@ -14,8 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "modules")
-public class Module {
+@Table(name = "groups")
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
@@ -27,8 +27,8 @@ public class Module {
     private int priority;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "modules_resources",
-        joinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id"),
+    @JoinTable(name = "resources_groups",
+        joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
     )
     private Set<Resource> resources = new HashSet<>();

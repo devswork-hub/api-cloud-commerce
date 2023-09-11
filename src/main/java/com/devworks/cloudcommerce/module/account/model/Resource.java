@@ -27,10 +27,11 @@ public class Resource {
     private String link;
 
     @ManyToOne
-    @JoinColumn(name = "module_id", nullable = false)
-    private Module moduleId;
+    @JoinColumn(name = "group_id", nullable = true)
+    private Group group;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = true)
     @JoinTable(name = "resource_permissions",
         joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_permission_id", referencedColumnName = "id")

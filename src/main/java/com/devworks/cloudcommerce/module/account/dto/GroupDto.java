@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ModuleDto {
-    @Null(message = "attribute id most be null")
+public class GroupDto {
+//    @Null(message = "attribute id most be null")
     private UUID id;
 
     @NotEmpty(message = "attribute name is required")

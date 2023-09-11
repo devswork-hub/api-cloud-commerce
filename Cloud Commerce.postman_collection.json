@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"ADMIN\",\n    \"description\": \"Pode acessar somente as áreas do cliente\"\n}",
+									"raw": "{\n    \"name\": \"MANAGER\",\n    \"description\": \"Gerente de loja com permissões para gerenciar produtos, pedidos e usuários, além de acesso a relatórios e análises.\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -89,6 +89,39 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Assign resources to role",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"resourcesIds\": [\n        \"b7a8be35-6166-4b2e-9a96-58fcba50a04a\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{_}}/role/assign?roleId=2df84c7d-421b-4237-b128-b963ced93ccf",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"role",
+										"assign"
+									],
+									"query": [
+										{
+											"key": "roleId",
+											"value": "2df84c7d-421b-4237-b128-b963ced93ccf"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -102,7 +135,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local006@email.com\",\n    \"cpf\": \"12147178454\"\n}",
+									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -124,10 +157,20 @@
 						{
 							"name": "* Get user by email",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDbG91ZCBDb21tZXJjZSBBUEkiLCJzdWIiOiJsb2NhbDAwMkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImV4cCI6MTY5NDAzNjA4OX0.3IQoP0mGB1oliFj34C1NM1bXGoMLb16Ys2cIgffoIa8",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{_}}/user/email?email=local006@email.com",
+									"raw": "{{_}}/user/email?email=local002@email.com",
 									"host": [
 										"{{_}}"
 									],
@@ -138,7 +181,7 @@
 									"query": [
 										{
 											"key": "email",
-											"value": "local006@email.com"
+											"value": "local002@email.com"
 										}
 									]
 								}
@@ -148,6 +191,16 @@
 						{
 							"name": "* Get all users",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDbG91ZCBDb21tZXJjZSBBUEkiLCJzdWIiOiJsb2NhbDAwMkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImV4cCI6MTY5NDAzNDY3N30.VAuUH738Pd_roK6G-a8glUdto6o-NGlAKOQ6NzrD0fo",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -201,13 +254,44 @@
 					]
 				},
 				{
+					"name": "Resource",
+					"item": [
+						{
+							"name": "Create resource",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Produtos\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{_}}/resource",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"resource"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Sign Up",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local014@email.com\",\n    \"password\": \"123123\"\n}",
+							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local002@email.com\",\n    \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -233,7 +317,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"local014@email.com\",\n    \"password\": \"123123\"\n}",
+							"raw": "{\n    \"email\": \"local002@email.com\",\n    \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -241,12 +325,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{_}}/login",
+							"raw": "{{_}}/authenticate",
 							"host": [
 								"{{_}}"
 							],
 							"path": [
-								"login"
+								"authenticate"
 							]
 						}
 					},

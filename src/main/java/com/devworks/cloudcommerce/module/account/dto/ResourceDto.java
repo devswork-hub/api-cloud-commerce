@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class ResourceDto {
-    @Null(message = "attribute id most be null")
+//    @Null(message = "attribute id most be null")
     private UUID id;
 
     @JsonProperty("created_at")
@@ -31,8 +31,8 @@ public class ResourceDto {
     // on create resource, validate if is valid link
     private String link;
 
-    @JsonProperty("module_id")
-    private UUID moduleId;
+    @JsonProperty("group_id")
+    private UUID groupId;
 
     @JsonProperty("permissions")
     private Set<Permission> resourcePermissions;

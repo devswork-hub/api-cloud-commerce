@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
+import com.devworks.cloudcommerce.module.account.dto.input.AssignResourcesToRoleInput;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.service.RoleService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +24,15 @@ public class RoleController {
     @PostMapping
     public ResponseEntity<Role> create(@Valid @RequestBody Role request) {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.create(request));
+    }
+
+    @PostMapping("/assign")
+    public ResponseEntity<Void> assignResourcesToRole(
+        @Valid @RequestParam UUID roleId,
+        @Valid @RequestBody AssignResourcesToRoleInput input
+    ) {
+        roleService.assignResourcesToRole(roleId, input);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @GetMapping

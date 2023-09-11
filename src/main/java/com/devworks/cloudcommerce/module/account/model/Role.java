@@ -40,5 +40,5 @@ public class Role implements Serializable {
         joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
     )
-    private transient Set<Resource> resources = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
 }

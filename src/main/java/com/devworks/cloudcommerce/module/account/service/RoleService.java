@@ -4,16 +4,17 @@ import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
+import com.devworks.cloudcommerce.module.account.dto.input.AssignResourcesToRoleInput;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -58,7 +59,8 @@ public class RoleService implements RoleServiceRules {
         roleRepository.deleteById(id);
     }
 
-    public void assignResourcesToRole(UUID roleId, Set<UUID> resourcesIds) {
+    @Transactional
+    public void assignResourcesToRole(UUID roleId, AssignResourcesToRoleInput input) {
         var role = findById(roleId);
         var newResources = new HashSet<Resource>();
 
@@ -66,14 +68,13 @@ public class RoleService implements RoleServiceRules {
             throw new IllegalStateException("Recursos já estão atribuídos a esta role.");
         }
 
-        for(UUID resourceId : resourcesIds) {
+        for(UUID resourceId : input.resourcesIds()) {
             var existsResource = resourceRepository.findById(resourceId);
 
-            if(existsResource.isPresent()) {
+            if(existsResource.isPresent())
                 newResources.add(existsResource.get());
-            } else {
+            else
                 throw new BadRequestException("Recurso não encontrado com ID: " + resourceId);
-            }
         }
         role.setResources(newResources);
         roleRepository.save(role);

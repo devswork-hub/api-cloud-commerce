@@ -20,8 +20,11 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
             .requestMatchers(HttpMethod.DELETE, UserRoute.ALL_CHILDREN.getValue()).permitAll()
 
             .requestMatchers(HttpMethod.POST, RoleRoute.BASE.getValue()).permitAll()
+            .requestMatchers(HttpMethod.POST, RoleRoute.ALL_CHILDREN.getValue()).permitAll()
             .requestMatchers(HttpMethod.GET, RoleRoute.BASE.getValue()).permitAll()
             .requestMatchers(HttpMethod.GET, RoleRoute.ALL_CHILDREN.getValue()).permitAll()
-            .requestMatchers(HttpMethod.DELETE, RoleRoute.ALL_CHILDREN.getValue()).permitAll());
+            .requestMatchers(HttpMethod.DELETE, RoleRoute.ALL_CHILDREN.getValue()).permitAll()
+
+            .requestMatchers(HttpMethod.POST, "/resource").permitAll());
     }
 }

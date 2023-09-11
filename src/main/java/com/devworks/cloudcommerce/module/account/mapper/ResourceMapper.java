@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
 import com.devworks.cloudcommerce.module.account.dto.ResourceDto;
+import com.devworks.cloudcommerce.module.account.model.Group;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 
 public class ResourceMapper {
@@ -8,14 +9,13 @@ public class ResourceMapper {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static Resource toEntity(Resource dto) {
+    public static Resource toEntity(ResourceDto dto) {
         return Resource.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())
             .updatedAt(dto.getUpdatedAt())
 
             .name(dto.getName())
-            .moduleId(dto.getModuleId())
             .link(dto.getLink())
             .resourcePermissions(dto.getResourcePermissions())
             .build();
@@ -28,7 +28,6 @@ public class ResourceMapper {
             .updatedAt(entity.getUpdatedAt())
 
             .name(entity.getName())
-            .moduleId(entity.getModuleId().getId())
             .link(entity.getLink())
             .resourcePermissions(entity.getResourcePermissions())
             .build();

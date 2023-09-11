@@ -1,15 +1,15 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.account.dto.ModuleDto;
-import com.devworks.cloudcommerce.module.account.model.Module;
+import com.devworks.cloudcommerce.module.account.dto.GroupDto;
+import com.devworks.cloudcommerce.module.account.model.Group;
 
-public class ModuleMapper {
-    private ModuleMapper() {
+public class GroupMapper {
+    private GroupMapper() {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static Module toEntity(Module dto) {
-        return Module.builder()
+    public static Group toEntity(Group dto) {
+        return Group.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())
             .updatedAt(dto.getUpdatedAt())
@@ -20,8 +20,8 @@ public class ModuleMapper {
             .build();
     }
 
-    public static ModuleDto toDto(Module entity) {
-        return ModuleDto.builder()
+    public static GroupDto toDto(Group entity) {
+        return GroupDto.builder()
             .id(entity.getId())
             .createdAt(entity.getCreatedAt())
             .updatedAt(entity.getUpdatedAt())
