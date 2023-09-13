@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,7 +15,9 @@ import java.util.UUID;
 @Entity
 @Table(name = "resources")
 public class Resource {
-    // Base Attributes
+    /**
+     * Base Attributes
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
@@ -28,7 +29,9 @@ public class Resource {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Required Attributes
+    /**
+     * Required Attributes
+     */
     @Column(nullable = false)
     private String name;
 
@@ -44,14 +47,15 @@ public class Resource {
         joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
-    @Builder.Default
-    private Set<Permission> permissions = new HashSet<>();
+    private Set<Permission> permissions;
 
-    // Optionals
+    /**
+     * Optional Attributes
+     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "resources_departments",
         joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id")
     )
-    private Set<Department> department;
+    private Set<Department> departments;
 }

@@ -2,10 +2,12 @@ package com.devworks.cloudcommerce.module.account.dto;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.utils.Validator;
+import com.devworks.cloudcommerce.module.account.model.Department;
 import com.devworks.cloudcommerce.module.account.model.Permission;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Null;
+import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -40,18 +42,20 @@ public class ResourceDTO {
     @NotEmpty(message = "attribute name is required")
     private String name;
 
-    // on create resource, validate if is valid link
     @NotEmpty(message = "attribute path is required")
     private String path;
+
+    @NotEmpty(message = "attribute active is required")
+    @BooleanFlag
+    private boolean active;
+
+    @NotEmpty(message = "attribute permissions[] is required")
+    private Set<Permission> permissions;
 
     /**
      * Optional Attributes
      */
-    @JsonProperty("group_id")
-    private UUID groupId;
-
-    @JsonProperty("permissions")
-    private Set<Permission> resourcePermissions;
+    private Set<Department> departments;
 
     /**
      * Defines the path to the resource.

@@ -16,7 +16,9 @@ public class ResourceMapper {
 
             .name(dto.getName())
             .path(dto.getPath())
-            .permissions(dto.getResourcePermissions())
+            .active(dto.isActive())
+            .departments(dto.getDepartments())
+            .permissions(dto.getPermissions())
             .build();
     }
 
@@ -28,7 +30,9 @@ public class ResourceMapper {
 
             .name(entity.getName())
             .path(entity.getPath())
-            .resourcePermissions(entity.getPermissions())
+            .active(entity.isActive())
+            .departments(entity.getDepartments())
+            .permissions(entity.getPermissions())
             .build();
     }
 }
