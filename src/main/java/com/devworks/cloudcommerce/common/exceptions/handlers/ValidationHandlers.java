@@ -83,11 +83,22 @@ public class ValidationHandlers {
     @ExceptionHandler(MissingPathVariableException.class)
     public ResponseEntity<ErrorResponseDto<Object>> missingPathVariableException(MissingPathVariableException m) {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ErrorResponseDto
-                .builder()
-                .messages(m.getMessage())
-                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .build()
+            .builder()
+            .messages(m.getMessage())
+            .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+            .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .build()
+        );
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> missingPathVariableException(IllegalArgumentException i) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
+            .builder()
+            .messages(i.getMessage())
+            .httpStatus(HttpStatus.BAD_REQUEST)
+            .statusCode(HttpStatus.BAD_REQUEST.value())
+            .build()
         );
     }
 }

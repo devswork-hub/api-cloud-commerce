@@ -43,6 +43,7 @@ public class SignUpService {
         userCredentials.setEmail(input.getEmail());
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);
+        userCredentials.setAccountStatus(input.getAccountStatus());
 
         userCredentialsService.create(userCredentials);
     }

@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusTypes;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -59,4 +59,18 @@ public class UserCredentialsDTO {
     private String username;
 
     private Set<Role> roles;
+
+    /**
+     * Defines the name to the account_status.
+     *
+     * @param accountStatus The name to be defined.
+     * @throws BadRequestException If the account_status is not valid.
+     */
+    public void setAccountStatus(String accountStatus) {
+        try {
+            this.accountStatus = AccountStatusTypes.valueOf(accountStatus);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid account status type with name " + accountStatus);
+        }
+    }
 }

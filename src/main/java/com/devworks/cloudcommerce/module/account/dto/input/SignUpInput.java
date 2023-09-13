@@ -27,4 +27,8 @@ public class SignUpInput {
 
     @NotEmpty(message = "attribute password is required")
     private String password;
+
+    @NotEmpty(message = "attribute account_status is required")
+    @JsonProperty("account_status")
+    private String accountStatus;
 }
