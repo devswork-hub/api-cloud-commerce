@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.account.dto.PermissionDto;
+import com.devworks.cloudcommerce.module.account.dto.PermissionDTO;
 import com.devworks.cloudcommerce.module.account.model.Permission;
 
 public class PermissionMapper {
@@ -19,8 +19,8 @@ public class PermissionMapper {
             .build();
     }
 
-    public static PermissionDto toDto(Permission entity) {
-        return PermissionDto.builder()
+    public static PermissionDTO toDto(Permission entity) {
+        return PermissionDTO.builder()
             .id(entity.getId())
             .createdAt(entity.getCreatedAt())
             .updatedAt(entity.getUpdatedAt())

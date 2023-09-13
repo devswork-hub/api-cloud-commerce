@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PermissionDto {
+public class PermissionDTO {
     /**
      * Internal Base Attributes
      */
