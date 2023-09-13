@@ -1,18 +1,14 @@
 package com.devworks.cloudcommerce.module.account.service.flow;
 
 import com.devworks.cloudcommerce.common.security.EncryptingService;
-import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
-import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
+import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.SignUpInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
-import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
 
 @Service
 public class SignUpService {
@@ -43,7 +39,7 @@ public class SignUpService {
         var combinedPasswordAndSalt = input.getPassword() + salt;
         var passwordHash = encryptingService.encrypt(combinedPasswordAndSalt);
 
-        var userCredentials = new UserCredentialsDto();
+        var userCredentials = new UserCredentialsDTO();
         userCredentials.setEmail(input.getEmail());
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);

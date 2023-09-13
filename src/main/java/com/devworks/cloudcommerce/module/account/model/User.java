@@ -15,11 +15,23 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+    /**
+     * Internal Base Attributes
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    /**
+     * Required Base Attributes
+     */
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
@@ -29,6 +41,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String email;
 
+    /**
+     * Optional Attributes
+     */
     private String cpf;
 
     @Column(name = "phone_number")
@@ -39,11 +54,4 @@ public class User implements Serializable {
 
     @Column(name = "phone_code_area")
     private String phoneCodeArea;
-
-    @Column(name = "created_at", updatable = false)
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 }
