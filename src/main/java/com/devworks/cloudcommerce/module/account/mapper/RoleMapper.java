@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.account.dto.RoleDto;
+import com.devworks.cloudcommerce.module.account.dto.RoleDTO;
 import com.devworks.cloudcommerce.module.account.model.Role;
 
 public class RoleMapper {
@@ -8,7 +8,7 @@ public class RoleMapper {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static Role toEntity(RoleDto dto) {
+    public static Role toEntity(RoleDTO dto) {
       return Role.builder()
         .id(dto.getId())
         .createdAt(dto.getCreatedAt())
@@ -21,8 +21,8 @@ public class RoleMapper {
         .build();
     }
 
-    public static RoleDto toDto(Role entity) {
-      return RoleDto.builder()
+    public static RoleDTO toDto(Role entity) {
+      return RoleDTO.builder()
         .id(entity.getId())
         .createdAt(entity.getCreatedAt())
         .updatedAt(entity.getUpdatedAt())
