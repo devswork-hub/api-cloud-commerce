@@ -1,6 +1,5 @@
 package com.devworks.cloudcommerce.module.account.model;
 
-import com.devworks.cloudcommerce.module.account.constants.PermissionTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "permissions")
-public class Permission {
+@Table(name = "roles_permissions")
+public class RolePermission {
     /**
      * Internal Base Attributes
      */
@@ -32,12 +31,11 @@ public class Permission {
     /**
      * Required Attributes
      */
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private PermissionTypes name;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    private Role role;
 
-    @Column(nullable = false)
-    private boolean active;
+    @ManyToOne
+    @JoinColumn(name = "permission_id", referencedColumnName = "id", nullable = false)
+    private Permission permission;
 }
-
-

@@ -35,17 +35,23 @@ public class Resource {
     @Column(nullable = false)
     private String path;
 
-    // Optionals
-    @ManyToOne
-    @JoinColumn(name = "group_id", nullable = true)
-    private Group group;
+    @Column(nullable = false)
+    private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = true)
-    @JoinTable(name = "resource_permissions",
-      joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    @JoinColumn(nullable = false)
+    @JoinTable(name = "resources_permissions",
+        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
     @Builder.Default
     private Set<Permission> permissions = new HashSet<>();
+
+    // Optionals
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "resources_departments",
+        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id")
+    )
+    private Set<Department> department;
 }

@@ -12,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "groups")
-public class Group {
+@Table(name = "departments")
+public class Department {
     /**
      * Internal Base Attributes
      */
@@ -34,9 +34,8 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)
-    private Resource resource;
+    @Column(nullable = false)
+    private boolean active;
 
     /**
      * Optional Attributes

@@ -43,6 +43,9 @@ public class Role implements Serializable {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private boolean active;
+
     public void setName(String name) {
       if (!Validator.isValidEnum(RolesTypes.class, name))
         throw new BadRequestException("Invalid role type with name " + name);
