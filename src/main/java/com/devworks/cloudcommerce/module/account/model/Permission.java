@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.model;
 
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.module.account.constants.PermissionTypes;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,6 +39,20 @@ public class Permission {
 
     @Column(nullable = false)
     private boolean active;
+
+    /**
+     * Defines the name to the permission_type.
+     *
+     * @param name The name to be defined.
+     * @throws BadRequestException If the name is not valid.
+     */
+    public void setName(String name) {
+        try {
+            this.name = PermissionTypes.valueOf(name);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid role type with name " + name);
+        }
+    }
 }
 
 

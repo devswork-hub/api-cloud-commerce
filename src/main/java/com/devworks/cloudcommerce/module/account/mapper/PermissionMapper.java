@@ -15,7 +15,7 @@ public class PermissionMapper {
             .updatedAt(dto.getUpdatedAt())
 
             .name(dto.getName())
-            .resourceId(dto.getResourceId())
+            .active(dto.isActive())
             .build();
     }
 
@@ -26,7 +26,7 @@ public class PermissionMapper {
             .updatedAt(entity.getUpdatedAt())
 
             .name(entity.getName())
-            .resourceId(entity.getResourceId().getId())
+            .active(entity.isActive())
             .build();
     }
 }
