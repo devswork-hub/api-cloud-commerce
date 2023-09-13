@@ -4,7 +4,7 @@ import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
 import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
-import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDto;
+import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
@@ -33,7 +33,7 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         this.userService = userService;
     }
 
-    public void create(UserCredentialsDto input) {
+    public void create(UserCredentialsDTO input) {
         var existsUserCredentials = userCredentialsRepository.findByEmail(input.getEmail());
 
         if (existsUserCredentials.isPresent())
@@ -70,7 +70,7 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
             .orElseThrow(() -> new NotFoundException("User with credential not found"));
     }
 
-    public void assignCredentialsToUser(User user, UserCredentialsDto input) {
+    public void assignCredentialsToUser(User user, UserCredentialsDTO input) {
         userService.findById(user.getId());
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
     }
