@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.module.account.model.Permission;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Null;
@@ -8,6 +9,7 @@ import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -41,4 +43,9 @@ public class RoleDto {
     @NotEmpty(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
+
+    /**
+     * Optional Attributes
+     */
+    private Set<Permission> permissions;
 }

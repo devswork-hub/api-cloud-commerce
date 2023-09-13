@@ -46,6 +46,16 @@ public class Role implements Serializable {
     @Column(nullable = false)
     private boolean active;
 
+    /**
+     * Optional Attributes
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_permissions",
+        joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    )
+    private transient Set<Permission> permissions;
+
     public void setName(String name) {
       if (!Validator.isValidEnum(RolesTypes.class, name))
         throw new BadRequestException("Invalid role type with name " + name);
