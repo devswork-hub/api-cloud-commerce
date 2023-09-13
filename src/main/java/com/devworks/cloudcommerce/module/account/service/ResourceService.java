@@ -29,7 +29,7 @@ public class ResourceService {
 
   public Resource findByName(String name) {
     return resourceRepository.findByName(name)
-        .orElseThrow(() -> new NotFoundException("Resource not found"));
+      .orElseThrow(() -> new NotFoundException("Resource not found"));
   }
 
   public List<Resource> findAll() {

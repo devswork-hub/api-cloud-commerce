@@ -12,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "groups")
-public class Group {
+@Table(name = "roles_resources")
+public class RoleResource {
     /**
      * Internal Base Attributes
      */
@@ -31,8 +31,9 @@ public class Group {
     /**
      * Required Attributes
      */
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    private Role role;
 
     @ManyToOne
     @JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)
@@ -41,5 +42,16 @@ public class Group {
     /**
      * Optional Attributes
      */
-    private int priority;
+    @Column(name = "can_add")
+    private boolean canAdd;
+
+    @Column(name = "can_edit")
+    private boolean canEdit;
+
+    @Column(name = "can_view")
+    private boolean canView;
+
+    @Column(name = "can_delete")
+    private boolean canDelete;
+
 }

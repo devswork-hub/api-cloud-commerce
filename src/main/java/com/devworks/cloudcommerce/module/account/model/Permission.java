@@ -24,13 +24,10 @@ public class Permission {
     @Enumerated(EnumType.STRING)
     private PermissionTypes name;
 
-    @ManyToOne
-    @JoinColumn(name = "resource_id", nullable = false)
-    private Resource resourceId;
+    private boolean active;
 
     @Column(name = "created_at", updatable = false)
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

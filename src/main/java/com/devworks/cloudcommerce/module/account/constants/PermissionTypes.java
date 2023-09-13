@@ -20,5 +20,24 @@ public enum PermissionTypes {
         this.name = name;
         this.description = description;
     }
+//
+//    CREATE("CREATE", "Permite criar um novo registro", "ROLE_CREATE", "RESOURCE_CREATE"),
+//    READ("READ", "Permite a leitura de informações", "ROLE_READ", "RESOURCE_READ"),
+//    WRITE("WRITE", "Administrador com acesso total", "ROLE_WRITE", "RESOURCE_WRITE"),
+//    DELETE("DELETE", "Permite a exclusão de registros", "ROLE_DELETE", "RESOURCE_DELETE"),
+//    APPEND("APPEND", "Administração com acesso total", "ROLE_APPEND", "RESOURCE_APPEND"),
+//    APPEND_TO("APPEND_TO", "Permite adicionar informações", "ROLE_APPEND_TO", "RESOURCE_APPEND_TO"),
+//    ASSIGN("ASSIGN", "Permite atribuir recursos", "ROLE_ASSIGN", "RESOURCE_ASSIGN"),
+//    SHARE("SHARE", "Oferece permissão a um cliente", "ROLE_SHARE", "RESOURCE_SHARE");
+//
+//    private final String description;
+//    private final String rolePermission;  // Permissão a nível de função (role)
+//    private final String resourcePermission;  // Permissão a nível de recurso (resource)
+//
+//    PermissionTypes(String description, String rolePermission, String resourcePermission, String resourceCreate) {
+//        this.description = description;
+//        this.rolePermission = rolePermission;
+//        this.resourcePermission = resourcePermission;
+//    }
 
 }

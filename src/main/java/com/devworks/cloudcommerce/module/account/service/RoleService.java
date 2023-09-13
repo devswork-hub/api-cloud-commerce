@@ -2,8 +2,6 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
-import com.devworks.cloudcommerce.common.utils.Validator;
-import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
 import com.devworks.cloudcommerce.module.account.dto.input.AssignResourcesToRoleInput;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.Role;
@@ -29,9 +27,6 @@ public class RoleService implements RoleServiceRules {
 
   @Override
   public Role create(Role request) {
-    if (!Validator.isValidEnum(RolesTypes.class, request.getName()))
-      throw new BadRequestException("Invalid role type with name " + request.getName());
-
     var existsRole = roleRepository.findByName(request.getName());
     if (existsRole.isPresent())
       throw new BadRequestException("Role has already been declared");
