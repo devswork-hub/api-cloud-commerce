@@ -16,8 +16,7 @@ public class RoleMapper {
 
         .name(dto.getName())
         .description(dto.getDescription())
-        .permissions(dto.getPermissions())
-        .resources(dto.getResources())
+        .active(dto.isActive())
         .build();
     }
 
@@ -29,8 +28,7 @@ public class RoleMapper {
 
         .name(entity.getName())
         .description(entity.getDescription())
-        .permissions(entity.getPermissions())
-        .resources(entity.getResources())
+        .active(entity.isActive())
         .build();
     }
 }

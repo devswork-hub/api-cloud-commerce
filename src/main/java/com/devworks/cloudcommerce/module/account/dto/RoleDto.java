@@ -1,16 +1,13 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
-import com.devworks.cloudcommerce.module.account.model.Permission;
-import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
+import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -41,12 +38,7 @@ public class RoleDto {
     @Size(min = 10, message = "description should have at least 10 characters")
     private String description;
 
-    /**
-     * Optional Attributes
-     */
-    @Builder.Default
-    private Set<Resource> resources = new HashSet<>();
-
-    @Builder.Default
-    private Set<Permission> permissions = new HashSet<>();
+    @NotEmpty(message = "attribute active is required")
+    @BooleanFlag
+    private boolean active;
 }
