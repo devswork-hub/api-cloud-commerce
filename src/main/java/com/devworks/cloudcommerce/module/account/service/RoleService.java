@@ -51,29 +51,29 @@ public class RoleService implements RoleServiceRules {
     roleRepository.deleteById(id);
   }
 
-  @Transactional
-  public void assignResourcesToRole(UUID roleId, AssignResourcesToRoleInput input) {
-    var role = findById(roleId);
-    var newResources = new HashSet<Resource>();
-
-    if (hasResourcesAssigned(roleId)) {
-      throw new IllegalStateException("Resources are already assigned to this role.");
-    }
-
-    for (UUID resourceId : input.resourcesIds()) {
-      var existsResource = resourceRepository.findById(resourceId);
-
-      if (existsResource.isPresent())
-        newResources.add(existsResource.get());
-      else
-        throw new BadRequestException("Resource not found with ID: " + resourceId);
-    }
-    role.setResources(newResources);
-    roleRepository.save(role);
-  }
-
-  private boolean hasResourcesAssigned(UUID roleId) {
-    Role role = findById(roleId);
-    return role != null && !role.getResources().isEmpty();
-  }
+//  @Transactional
+//  public void assignResourcesToRole(UUID roleId, AssignResourcesToRoleInput input) {
+//    var role = findById(roleId);
+//    var newResources = new HashSet<Resource>();
+//
+//    if (hasResourcesAssigned(roleId)) {
+//      throw new IllegalStateException("Resources are already assigned to this role.");
+//    }
+//
+//    for (UUID resourceId : input.resourcesIds()) {
+//      var existsResource = resourceRepository.findById(resourceId);
+//
+//      if (existsResource.isPresent())
+//        newResources.add(existsResource.get());
+//      else
+//        throw new BadRequestException("Resource not found with ID: " + resourceId);
+//    }
+//    role.(newResources);
+//    roleRepository.save(role);
+//  }
+//
+//  private boolean hasResourcesAssigned(UUID roleId) {
+//    Role role = findById(roleId);
+//    return role != null && !role.getResources().isEmpty();
+//  }
 }

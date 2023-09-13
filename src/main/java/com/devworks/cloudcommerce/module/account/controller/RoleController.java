@@ -30,7 +30,7 @@ public class RoleController {
         @Valid @RequestParam UUID roleId,
         @Valid @RequestBody AssignResourcesToRoleInput input
     ) {
-        roleService.assignResourcesToRole(roleId, input);
+//        roleService.assignResourcesToRole(roleId, input);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 

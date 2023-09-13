@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -42,16 +43,10 @@ public class RoleResource {
     /**
      * Optional Attributes
      */
-    @Column(name = "can_add")
-    private boolean canAdd;
-
-    @Column(name = "can_edit")
-    private boolean canEdit;
-
-    @Column(name = "can_view")
-    private boolean canView;
-
-    @Column(name = "can_delete")
-    private boolean canDelete;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_resources_permissions",
+        joinColumns = @JoinColumn(name = "role_resource_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    )
+    private transient Set<Resource> permissions;
 }

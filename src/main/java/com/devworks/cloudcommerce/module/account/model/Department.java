@@ -36,9 +36,4 @@ public class Department {
 
     @Column(nullable = false)
     private boolean active;
-
-    /**
-     * Optional Attributes
-     */
-    private int priority;
 }

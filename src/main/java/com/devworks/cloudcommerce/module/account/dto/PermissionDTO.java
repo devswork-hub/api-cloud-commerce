@@ -23,6 +23,7 @@ public class PermissionDTO {
     private UUID id;
 
     @JsonProperty("created_at")
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @JsonProperty("updated_at")
