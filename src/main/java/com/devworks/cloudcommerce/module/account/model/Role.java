@@ -8,7 +8,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,6 +55,12 @@ public class Role implements Serializable {
     )
     private transient Set<Permission> permissions;
 
+    /**
+     * Defines the name to the role.
+     *
+     * @param name The name to be defined.
+     * @throws BadRequestException If the name is not valid.
+     */
     public void setName(String name) {
       if (!Validator.isValidEnum(RolesTypes.class, name))
         throw new BadRequestException("Invalid role type with name " + name);
