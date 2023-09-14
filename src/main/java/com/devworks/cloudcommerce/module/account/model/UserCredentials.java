@@ -1,8 +1,6 @@
 package com.devworks.cloudcommerce.module.account.model;
 
-import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import com.devworks.cloudcommerce.module.account.constants.AccountStatusTypes;
-import com.devworks.cloudcommerce.module.account.constants.PermissionTypes;
+import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,7 +46,7 @@ public class UserCredentials implements Serializable {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private AccountStatusTypes accountStatus;
+    private AccountStatusType accountStatus;
 
     /**
      * Optional Attributes

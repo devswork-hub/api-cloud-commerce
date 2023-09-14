@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import com.devworks.cloudcommerce.module.account.constants.AccountStatusTypes;
+import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
@@ -50,7 +50,7 @@ public class UserCredentialsDTO {
 
     @JsonProperty("account_status")
     @NotEmpty(message = "attribute account_status is required")
-    private AccountStatusTypes accountStatus;
+    private AccountStatusType accountStatus;
 
     /**
      * Optional Attributes
@@ -68,7 +68,7 @@ public class UserCredentialsDTO {
      */
     public void setAccountStatus(String accountStatus) {
         try {
-            this.accountStatus = AccountStatusTypes.valueOf(accountStatus);
+            this.accountStatus = AccountStatusType.valueOf(accountStatus);
         } catch (IllegalArgumentException e) {
             throw new BadRequestException("Invalid account status type with name " + accountStatus);
         }

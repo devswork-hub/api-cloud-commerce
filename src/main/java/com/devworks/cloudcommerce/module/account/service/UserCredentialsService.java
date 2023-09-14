@@ -3,7 +3,7 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
-import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
@@ -51,11 +51,11 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
             credentials.setRoles(roles);
         }
 
-        Role customerRole = roleRepository.findByName(RolesTypes.CUSTOMER.getName())
+        Role customerRole = roleRepository.findByName(RolesType.CUSTOMER.getName())
             .orElseGet(() -> { // Create customer role if it doesn't exist
                 Role defaultRole = new Role();
-                defaultRole.setName(RolesTypes.CUSTOMER.getName());
-                defaultRole.setDescription(RolesTypes.CUSTOMER.getDescription());
+                defaultRole.setName(RolesType.CUSTOMER.getName());
+                defaultRole.setDescription(RolesType.CUSTOMER.getDescription());
                 return roleRepository.save(defaultRole);
             });
 
