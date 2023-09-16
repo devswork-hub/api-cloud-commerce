@@ -1,9 +1,8 @@
 package com.devworks.cloudcommerce.module.account.repository;
 
-import com.devworks.cloudcommerce.module.account.model.Permission;
+import com.devworks.cloudcommerce.module.account.model.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface PermissionRepository extends JpaRepository<Permission, UUID> {
-}
+public interface DepartmentRepository extends JpaRepository<Department, UUID> { }
