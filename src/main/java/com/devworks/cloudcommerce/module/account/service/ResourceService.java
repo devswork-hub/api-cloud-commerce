@@ -12,11 +12,14 @@ import java.util.List;
 
 @Service
 public class ResourceService {
+  private final ActionService actionService;
   private final ResourceRepository resourceRepository;
 
-  public ResourceService(ResourceRepository resourceRepository) {
+  public ResourceService(ActionService actionService, ResourceRepository resourceRepository) {
+    this.actionService = actionService;
     this.resourceRepository = resourceRepository;
   }
+
 
   public Resource create(ResourceDTO request) {
     var existsResource = resourceRepository.findByName(request.getName());
@@ -24,7 +27,13 @@ public class ResourceService {
     if (existsResource.isPresent())
       throw new BadRequestException("Resource already exists");
 
-    return resourceRepository.save(ResourceMapper.toEntity(request));
+    var resource = ResourceMapper.toEntity(request);
+
+    if(!request.getActions().isEmpty()) {
+      resource.setActions(actionService.getValidActions(request.getActions()));
+    }
+
+    return resourceRepository.save(resource);
   }
 
   public Resource findByName(String name) {
