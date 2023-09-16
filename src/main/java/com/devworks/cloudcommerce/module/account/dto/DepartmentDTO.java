@@ -1,14 +1,13 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
-import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -35,7 +34,7 @@ public class DepartmentDTO {
   @NotEmpty(message = "attribute name is required")
   private String name;
 
-  @NotEmpty(message = "attribute active is required")
+  @NotNull(message = "attribute active is required")
   @BooleanFlag
   private boolean active;
 }
