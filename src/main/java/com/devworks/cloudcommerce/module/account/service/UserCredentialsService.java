@@ -62,7 +62,6 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         roles.add(customerRole);
 
         return credentials;
-
     }
 
     public UserCredentials findByEmail(String email) {
