@@ -42,12 +42,11 @@ public class Resource {
     private boolean active;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
-    @JoinTable(name = "resources_permissions",
+    @JoinTable(name = "resources_actions",
         joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+        inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
     )
-    private Set<Permission> permissions;
+    private Set<Action> actions;
 
     /**
      * Optional Attributes
