@@ -2,7 +2,7 @@ package com.devworks.cloudcommerce.module.account.model;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.utils.Validator;
-import com.devworks.cloudcommerce.module.account.constants.RolesTypes;
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,7 +51,7 @@ public class Role implements Serializable {
      * @throws BadRequestException If the name is not valid.
      */
     public void setName(String name) {
-      if (!Validator.isValidEnum(RolesTypes.class, name))
+      if (!Validator.isValidEnum(RolesType.class, name))
         throw new BadRequestException("Invalid role type with name " + name);
       this.name = name;
     }
