@@ -2,6 +2,7 @@ package com.devworks.cloudcommerce.module.account.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import jdk.jfr.BooleanFlag;
@@ -39,7 +40,7 @@ public class RoleDTO {
     @Size(min = 10, message = "description should have at least 10 characters")
     private String description;
 
-    @NotEmpty(message = "attribute active is required")
+    @NotNull(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
 }
