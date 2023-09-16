@@ -3,9 +3,10 @@ package com.devworks.cloudcommerce.module.account.dto;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.model.Department;
-import com.devworks.cloudcommerce.module.account.model.Permission;
+import com.devworks.cloudcommerce.module.account.model.Action;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jdk.jfr.BooleanFlag;
 import lombok.*;
@@ -45,12 +46,12 @@ public class ResourceDTO {
     @NotEmpty(message = "attribute path is required")
     private String path;
 
-    @NotEmpty(message = "attribute active is required")
+    @NotNull(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
 
     @NotEmpty(message = "attribute permissions[] is required")
-    private Set<Permission> permissions;
+    private Set<Action> actions;
 
     /**
      * Optional Attributes
