@@ -18,7 +18,7 @@ public class ResourceMapper {
             .path(dto.getPath())
             .active(dto.isActive())
             .departments(dto.getDepartments())
-            .permissions(dto.getPermissions())
+            .actions(dto.getActions())
             .build();
     }
 
@@ -32,7 +32,7 @@ public class ResourceMapper {
             .path(entity.getPath())
             .active(entity.isActive())
             .departments(entity.getDepartments())
-            .permissions(entity.getPermissions())
+            .actions(entity.getActions())
             .build();
     }
 }
