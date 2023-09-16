@@ -1,8 +1,10 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
-import com.devworks.cloudcommerce.module.account.constants.PermissionTypes;
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.module.account.constants.ActionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jdk.jfr.BooleanFlag;
 import lombok.*;
@@ -15,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PermissionDTO {
+public class ActionDTO {
     /**
      * Internal Base Attributes
      */
@@ -33,9 +35,23 @@ public class PermissionDTO {
      * Required Attributes
      */
     @NotEmpty(message = "attribute name is required")
-    private PermissionTypes name;
+    private String name;
 
-    @NotEmpty(message = "attribute active is required")
+    @NotNull(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
+
+    /**
+     * Defines the name to the permission_type.
+     *
+     * @param name The name to be defined.
+     * @throws BadRequestException If the name is not valid.
+     */
+    public void setName(String name) {
+        try {
+            this.name = String.valueOf(ActionType.valueOf(name));
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid role type with name " + name);
+        }
+    }
 }

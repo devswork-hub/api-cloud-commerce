@@ -1,7 +1,5 @@
 package com.devworks.cloudcommerce.module.account.model;
 
-import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import com.devworks.cloudcommerce.module.account.constants.PermissionTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "permissions")
-public class Permission {
+@Table(name = "actions")
+public class Action {
     /**
      * Internal Base Attributes
      */
@@ -34,25 +32,10 @@ public class Permission {
      * Required Attributes
      */
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private PermissionTypes name;
+    private String name;
 
     @Column(nullable = false)
     private boolean active;
-
-    /**
-     * Defines the name to the permission_type.
-     *
-     * @param name The name to be defined.
-     * @throws BadRequestException If the name is not valid.
-     */
-    public void setName(String name) {
-        try {
-            this.name = PermissionTypes.valueOf(name);
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Invalid role type with name " + name);
-        }
-    }
 }
 
 

@@ -1,15 +1,15 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.account.dto.PermissionDTO;
-import com.devworks.cloudcommerce.module.account.model.Permission;
+import com.devworks.cloudcommerce.module.account.dto.ActionDTO;
+import com.devworks.cloudcommerce.module.account.model.Action;
 
-public class PermissionMapper {
-    private PermissionMapper() {
+public class ActionMapper {
+    private ActionMapper() {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static Permission toEntity(Permission dto) {
-        return Permission.builder()
+    public static Action toEntity(ActionDTO dto) {
+        return Action.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())
             .updatedAt(dto.getUpdatedAt())
@@ -19,8 +19,8 @@ public class PermissionMapper {
             .build();
     }
 
-    public static PermissionDTO toDto(Permission entity) {
-        return PermissionDTO.builder()
+    public static ActionDTO toDto(Action entity) {
+        return ActionDTO.builder()
             .id(entity.getId())
             .createdAt(entity.getCreatedAt())
             .updatedAt(entity.getUpdatedAt())
