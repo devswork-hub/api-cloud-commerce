@@ -23,9 +23,6 @@ public class LoginService {
     }
 
     public LoginOutput execute(LoginInput input) {
-
-        System.out.println("003");
-
         var auth = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 input.email(),
