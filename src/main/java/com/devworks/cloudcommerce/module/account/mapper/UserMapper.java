@@ -21,6 +21,7 @@ public class UserMapper {
             .phoneNumber(dto.getPhoneNumber())
             .phoneCodeArea(dto.getPhoneCountryCode())
             .phoneCodeArea(dto.getPhoneCodeArea())
+            .userType(dto.getUserType())
             .build();
     }
 
@@ -37,6 +38,7 @@ public class UserMapper {
             .phoneNumber(entity.getPhoneNumber())
             .phoneCodeArea(entity.getPhoneCountryCode())
             .phoneCodeArea(entity.getPhoneCodeArea())
+            .userType(entity.getUserType())
             .build();
     }
 }

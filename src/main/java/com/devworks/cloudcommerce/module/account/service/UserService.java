@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.module.account.constants.UserType;
 import com.devworks.cloudcommerce.module.account.dto.UserDto;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
@@ -51,5 +52,9 @@ public class UserService implements UserServiceRules {
     public void delete(UUID id) {
         findById(id);
         userRepository.deleteById(id);
+    }
+
+    public List<User> getAllCustomers() {
+        return userRepository.findByUserType(UserType.CUSTOMER);
     }
 }

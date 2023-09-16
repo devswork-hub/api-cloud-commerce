@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.model;
 
+import com.devworks.cloudcommerce.module.account.constants.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -54,4 +55,8 @@ public class User implements Serializable {
 
     @Column(name = "phone_code_area")
     private String phoneCodeArea;
+
+    @Column(name = "user_type")
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 }

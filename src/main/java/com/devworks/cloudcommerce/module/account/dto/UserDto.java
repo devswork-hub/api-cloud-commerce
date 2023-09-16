@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.module.account.constants.UserType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -50,4 +51,7 @@ public class UserDto {
 
     @JsonProperty("phone_code_area")
     private String phoneCodeArea;
+
+    @JsonProperty("user_type")
+    private UserType userType;
 }
