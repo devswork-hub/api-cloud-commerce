@@ -8,6 +8,7 @@ import com.devworks.cloudcommerce.module.account.mapper.ResourceMapper;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,17 +45,33 @@ public class ResourceService {
     return resourceRepository.save(resource);
   }
 
+  @Transactional
   public Resource update(UUID resourceId, UpdateResourceInput input) {
     var findedResource = findById(resourceId);
 
-    findedResource.setActions(actionService.getValidActions(input.actions()));
+    if (!input.name().isEmpty())
+        findedResource.setName(input.name());
+
+    findedResource.setActive(input.active());
+
+    if (!input.actions().isEmpty())
+      findedResource.setActions(actionService.getValidActions(input.actions()));
+
+    if (!input.departments().isEmpty())
+      findedResource.setDepartments(departmentService.getValidDepartments(input.departments()));
+
     findedResource.setUpdatedAt(LocalDateTime.now());
+
     return resourceRepository.save(findedResource);
   }
 
   public Resource findById(UUID id) {
-      return resourceRepository.findById(id)
-          .orElseThrow(() -> new NotFoundException("Not found resource with id " + id));
+      var resource = resourceRepository.findById(id);
+
+      if(resource.isEmpty())
+        throw new NotFoundException("Not found resource with id " + id);
+
+      return resource.get();
   }
 
   public Resource findByName(String name) {
@@ -68,5 +85,10 @@ public class ResourceService {
 
   public List<Resource> findAll() {
     return resourceRepository.findAll();
+  }
+
+  public void deleteById(UUID id) {
+    findById(id);
+    resourceRepository.deleteById(id);
   }
 }

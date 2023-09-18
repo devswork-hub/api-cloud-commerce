@@ -41,4 +41,10 @@ public class ResourceController {
         return ResponseEntity.status(HttpStatus.OK).body(resourceService.update(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) {
+        resourceService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
 }

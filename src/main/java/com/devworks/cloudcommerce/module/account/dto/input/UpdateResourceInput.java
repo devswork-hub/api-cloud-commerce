@@ -1,11 +1,13 @@
 package com.devworks.cloudcommerce.module.account.dto.input;
 
 import com.devworks.cloudcommerce.module.account.model.Action;
-import jakarta.validation.constraints.NotEmpty;
+import com.devworks.cloudcommerce.module.account.model.Department;
 
 import java.util.Set;
 
 public record UpdateResourceInput(
-    @NotEmpty(message = "attribute action is required")
-    Set<Action> actions
+    String name,
+    boolean active,
+    Set<Action> actions,
+    Set<Department> departments
 ) { }
