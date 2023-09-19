@@ -1,8 +1,11 @@
 package com.devworks.cloudcommerce.common.security.filter;
 
-import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.common.exceptions.AuthenticationException;
 import com.devworks.cloudcommerce.common.security.JwtService;
 import com.devworks.cloudcommerce.common.utils.HttpUtils;
+import com.devworks.cloudcommerce.module.account.model.Role;
+import com.devworks.cloudcommerce.module.account.service.RoleService;
+import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,14 +18,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
+    private final UserCredentialsService userCredentialsService;
+    private final RoleService roleService;
 
-    public JwtTokenFilter(JwtService jwtService) {
+    public JwtTokenFilter(JwtService jwtService, UserCredentialsService userCredentialsService, RoleService roleService) {
         this.jwtService = jwtService;
+        this.userCredentialsService = userCredentialsService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -41,13 +48,37 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private void authenticateByToken(String token, HttpServletRequest request) {
-        try {
-            var subject = jwtService.getSubject(token);
-            var auth = new UsernamePasswordAuthenticationToken(subject, null, new ArrayList<>());
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        } catch (Exception e) {
-            throw new BadRequestException(e.getMessage());
-        }
+        var subject = jwtService.getSubject(token);
+        var userCredentials = userCredentialsService.findByEmail(subject);
+        var auth = new UsernamePasswordAuthenticationToken(subject, null, userCredentials.getAuthorities());
+
+        var tokenRoles = jwtService.getRoles(token);
+
+        /*
+         * Check that all token roles exist on the system
+         * */
+        var invalidRoles = tokenRoles.stream()
+                .filter(role -> !roleService.existsRole(role))
+                .toList();
+
+        if (!invalidRoles.isEmpty())
+            throw new AuthenticationException("Invalid roles in token: " + invalidRoles);
+
+        /*
+         * Check if the user has all the roles assigned to him
+         * */
+        var userRoleNames = userCredentials.getRoles().stream()
+                .map(Role::getName)
+                .toList();
+
+        var missingRoles = tokenRoles.stream()
+                .filter(role -> !userRoleNames.contains(role))
+                .toList();
+
+        if (!missingRoles.isEmpty())
+            throw new AuthenticationException("User does not have the required roles: " + missingRoles);
+
+        auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }
