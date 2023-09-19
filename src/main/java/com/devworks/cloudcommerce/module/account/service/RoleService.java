@@ -2,27 +2,20 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
-import com.devworks.cloudcommerce.module.account.dto.input.AssignResourcesToRoleInput;
-import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.Role;
-import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class RoleService implements RoleServiceRules {
   private final RoleRepository roleRepository;
-  private final ResourceRepository resourceRepository;
 
-  public RoleService(RoleRepository roleRepository, ResourceRepository resourceRepository) {
+  public RoleService(RoleRepository roleRepository) {
     this.roleRepository = roleRepository;
-    this.resourceRepository = resourceRepository;
   }
 
   @Override
@@ -51,29 +44,12 @@ public class RoleService implements RoleServiceRules {
     roleRepository.deleteById(id);
   }
 
-//  @Transactional
-//  public void assignResourcesToRole(UUID roleId, AssignResourcesToRoleInput input) {
-//    var role = findById(roleId);
-//    var newResources = new HashSet<Resource>();
-//
-//    if (hasResourcesAssigned(roleId)) {
-//      throw new IllegalStateException("Resources are already assigned to this role.");
-//    }
-//
-//    for (UUID resourceId : input.resourcesIds()) {
-//      var existsResource = resourceRepository.findById(resourceId);
-//
-//      if (existsResource.isPresent())
-//        newResources.add(existsResource.get());
-//      else
-//        throw new BadRequestException("Resource not found with ID: " + resourceId);
-//    }
-//    role.(newResources);
-//    roleRepository.save(role);
-//  }
-//
-//  private boolean hasResourcesAssigned(UUID roleId) {
-//    Role role = findById(roleId);
-//    return role != null && !role.getResources().isEmpty();
-//  }
+  public Role findByName(String role) {
+    return roleRepository.findByName(role)
+        .orElseThrow(() -> new NotFoundException("Role not found with name " + role));
+  }
+
+  public boolean existsRole(String role) {
+    return roleRepository.existsByName(role);
+  }
 }
