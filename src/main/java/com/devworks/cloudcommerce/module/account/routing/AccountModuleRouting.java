@@ -1,5 +1,6 @@
 package com.devworks.cloudcommerce.module.account.routing;
 
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.routing.routes.ResourceRoute;
 import com.devworks.cloudcommerce.module.account.routing.routes.RoleRoute;
 import com.devworks.cloudcommerce.module.account.routing.routes.UserRoute;
@@ -15,7 +16,7 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
             .requestMatchers(HttpMethod.POST, "/sign-up").permitAll()
             .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
 
-            .requestMatchers(HttpMethod.GET, UserRoute.BASE.getValue()).authenticated()
+            .requestMatchers(HttpMethod.GET, UserRoute.BASE.getValue()).hasAnyAuthority(RolesType.ADMIN.getName(), RolesType.CUSTOMER.getName())
             .requestMatchers(HttpMethod.GET, UserRoute.ALL_CHILDREN.getValue()).authenticated()
             .requestMatchers(HttpMethod.POST, UserRoute.BASE.getValue()).permitAll()
             .requestMatchers(HttpMethod.DELETE, UserRoute.ALL_CHILDREN.getValue()).permitAll()
