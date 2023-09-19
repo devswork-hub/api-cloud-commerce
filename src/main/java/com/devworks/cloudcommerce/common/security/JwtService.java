@@ -3,8 +3,9 @@ package com.devworks.cloudcommerce.common.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.devworks.cloudcommerce.common.exceptions.AuthenticationException;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,19 @@ public class JwtService {
             .withIssuer(ISSUER)
             .build()
             .verify(token);
+    }
+
+    public List<String> getRoles(String token) throws BadRequestException {
+        var decodedJWT = JWT.require(Algorithm.HMAC256(secret))
+            .withIssuer(ISSUER)
+            .build().verify(token);
+
+        Claim rolesClaim = decodedJWT.getClaim("roles");
+
+        if (rolesClaim.isNull())
+            throw new AuthenticationException("Invalid token claims");
+
+        return rolesClaim.asList(String.class);
     }
 }
 
