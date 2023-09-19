@@ -1,6 +1,5 @@
 package com.devworks.cloudcommerce.common.security.provider;
 
-import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,13 +23,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
         var userDetails = userCredentialsService.findByEmail(email);
 
-        if(userDetails != null) {
-           return  new UsernamePasswordAuthenticationToken(
-               email, password, userDetails.getAuthorities()
-           );
-        }
-
-        throw new BadRequestException("Authentication Error");
+        return new UsernamePasswordAuthenticationToken(
+            email, password, userDetails.getAuthorities()
+        );
     }
 
     @Override
