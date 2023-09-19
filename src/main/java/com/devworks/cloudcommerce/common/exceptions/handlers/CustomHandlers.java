@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.common.exceptions.handlers;
 
 import com.devworks.cloudcommerce.common.dto.ErrorResponseDto;
+import com.devworks.cloudcommerce.common.exceptions.AuthenticationException;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,17 @@ public class CustomHandlers {
             .messages(b.getMessage())
             .httpStatus(HttpStatus.NOT_FOUND)
             .statusCode(HttpStatus.NOT_FOUND.value())
+            .build()
+        );
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> authenticationException(AuthenticationException a) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ErrorResponseDto
+            .builder()
+            .messages(a.getMessage())
+            .httpStatus(HttpStatus.FORBIDDEN)
+            .statusCode(HttpStatus.FORBIDDEN.value())
             .build()
         );
     }
