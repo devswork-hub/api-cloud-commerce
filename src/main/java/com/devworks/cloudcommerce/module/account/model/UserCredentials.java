@@ -60,11 +60,11 @@ public class UserCredentials implements Serializable {
     )
     private Set<Role> roles;
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if (roles != null) {
             for (Role role : roles) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
             }
         }
         return authorities;
