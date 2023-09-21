@@ -48,15 +48,17 @@ public class UserCredentialsDTO {
     @NotEmpty(message = "attribute password_salt is required")
     private String passwordSalt;
 
-    @JsonProperty("account_status")
-    @NotEmpty(message = "attribute account_status is required")
-    private AccountStatusType accountStatus;
+    @NotEmpty(message = "attribute user_id is required")
+    private UUID userId;
 
     /**
      * Optional Attributes
      */
     @Size(min = 8, message = "username should have at least 8 characters")
     private String username;
+
+    @JsonProperty("account_status")
+    private AccountStatusType accountStatus;
 
     private Set<Role> roles;
 

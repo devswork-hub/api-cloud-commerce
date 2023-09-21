@@ -44,14 +44,17 @@ public class UserCredentials implements Serializable {
     @Column(name = "password_salt", nullable = false)
     private String passwordSalt;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AccountStatusType accountStatus;
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private User user;
 
     /**
      * Optional Attributes
      */
     private String username;
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatusType accountStatus;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_credentials_roles",

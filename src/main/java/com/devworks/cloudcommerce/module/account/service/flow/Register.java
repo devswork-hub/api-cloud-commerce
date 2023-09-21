@@ -1,8 +1,9 @@
 package com.devworks.cloudcommerce.module.account.service.flow;
 
 import com.devworks.cloudcommerce.common.security.EncryptingService;
+import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
-import com.devworks.cloudcommerce.module.account.dto.input.SignUpInput;
+import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
@@ -11,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class SignUpService {
+public class Register {
     private final EncryptingService encryptingService;
     private final UserService userService;
     private final UserCredentialsService userCredentialsService;
 
-    public SignUpService(
+    public Register(
             EncryptingService encryptingService, UserService userService,
             UserCredentialsService userCredentialsService
     ) {
@@ -27,13 +28,13 @@ public class SignUpService {
 
 
     @Transactional
-    public void execute(SignUpInput input) {
+    public void execute(RegisterInput input) {
         var user = new User();
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
 
-        userService.create(UserMapper.toDto(user));
+        var createdUser = userService.create(UserMapper.toDto(user));
 
         var salt = encryptingService.generateSalt();
         var combinedPasswordAndSalt = input.getPassword() + salt;
@@ -43,7 +44,8 @@ public class SignUpService {
         userCredentials.setEmail(input.getEmail());
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);
-        userCredentials.setAccountStatus(input.getAccountStatus());
+        userCredentials.setUserId(createdUser.getId());
+        userCredentials.setAccountStatus(AccountStatusType.ACTIVE.getName());
 
         userCredentialsService.create(userCredentials);
     }

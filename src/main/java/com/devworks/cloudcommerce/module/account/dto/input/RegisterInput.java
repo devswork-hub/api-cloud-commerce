@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SignUpInput {
+public class RegisterInput {
     @NotEmpty(message = "attribute first_name is required")
     @JsonProperty("first_name")
     @Size(min = 2, message = "firstName should have at least 2 characters")
@@ -27,8 +27,4 @@ public class SignUpInput {
 
     @NotEmpty(message = "attribute password is required")
     private String password;
-
-    @NotEmpty(message = "attribute account_status is required")
-    @JsonProperty("account_status")
-    private String accountStatus;
 }

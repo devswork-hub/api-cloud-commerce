@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
-import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.dto.UserDTO;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto input) {
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO input) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(input));
     }
 

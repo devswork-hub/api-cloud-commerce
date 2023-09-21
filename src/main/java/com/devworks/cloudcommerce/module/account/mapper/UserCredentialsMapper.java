@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
+import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.model.UserCredentials;
 
 public class UserCredentialsMapper {
@@ -8,7 +9,7 @@ public class UserCredentialsMapper {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static UserCredentials toEntity(UserCredentialsDTO dto) {
+    public static UserCredentials toEntity(UserCredentialsDTO dto, User user) {
         return UserCredentials.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())
@@ -20,6 +21,7 @@ public class UserCredentialsMapper {
             .passwordSalt(dto.getPasswordSalt())
             .accountStatus(dto.getAccountStatus())
             .roles(dto.getRoles())
+            .user(user)
             .build();
     }
 
@@ -35,6 +37,7 @@ public class UserCredentialsMapper {
             .passwordSalt(entity.getPasswordSalt())
             .accountStatus(entity.getAccountStatus())
             .roles(entity.getRoles())
+            .userId(entity.getUser().getId())
             .build();
     }
 }

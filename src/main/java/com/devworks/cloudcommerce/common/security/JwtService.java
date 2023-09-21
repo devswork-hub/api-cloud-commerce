@@ -4,7 +4,7 @@ package com.devworks.cloudcommerce.common.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
-import com.devworks.cloudcommerce.common.exceptions.AuthenticationException;
+import com.devworks.cloudcommerce.common.exceptions.CustomAuthenticationException;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -75,7 +75,7 @@ public class JwtService {
         Claim rolesClaim = decodedJWT.getClaim("roles");
 
         if (rolesClaim.isNull())
-            throw new AuthenticationException("Invalid token claims");
+            throw new CustomAuthenticationException("Invalid token claims");
 
         return rolesClaim.asList(String.class);
     }

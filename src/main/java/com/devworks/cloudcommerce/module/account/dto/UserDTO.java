@@ -1,5 +1,7 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.constants.UserType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
@@ -16,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto {
+public class UserDTO {
     @Null(message = "attribute id most be null")
     private UUID id;
 
@@ -54,4 +56,12 @@ public class UserDto {
 
     @JsonProperty("user_type")
     private UserType userType;
+
+    public void setUserType(String name) {
+        try {
+            this.userType = UserType.valueOf(name);
+        } catch (IllegalArgumentException e) {
+            throw new BadRequestException("Invalid user type");
+        }
+    }
 }

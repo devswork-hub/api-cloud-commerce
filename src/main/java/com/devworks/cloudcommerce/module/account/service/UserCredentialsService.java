@@ -39,7 +39,9 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         if (existsUserCredentials.isPresent())
             throw new BadRequestException("Credentials with email already exists!");
 
-        var userCredentials = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input));
+        var user = userService.findById(existsUserCredentials.get().getId());
+
+        var userCredentials = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input, user));
         userCredentialsRepository.save(userCredentials);
     }
 
@@ -71,7 +73,7 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
 
     public void assignCredentialsToUser(User user, UserCredentialsDTO input) {
         userService.findById(user.getId());
-        userCredentialsRepository.save(UserCredentialsMapper.toEntity(input));
+        userCredentialsRepository.save(UserCredentialsMapper.toEntity(input, user));
     }
 
     public UserCredentials findByEmailAndPassword(String email) {

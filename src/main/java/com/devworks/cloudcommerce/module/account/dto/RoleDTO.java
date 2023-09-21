@@ -1,5 +1,8 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
+import com.devworks.cloudcommerce.common.utils.Validator;
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -43,4 +46,16 @@ public class RoleDTO {
     @NotNull(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
+
+    /**
+     * Defines the name to the role.
+     *
+     * @param name The name to be defined.
+     * @throws BadRequestException If the name is not valid.
+     */
+    public void setName(String name) {
+        if (!Validator.isValidEnum(RolesType.class, name))
+            throw new BadRequestException("Invalid role name");
+        this.name = name;
+    }
 }

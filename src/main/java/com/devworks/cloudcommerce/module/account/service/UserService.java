@@ -2,7 +2,7 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.module.account.constants.UserType;
-import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.dto.UserDTO;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.repository.UserRepository;
@@ -22,7 +22,7 @@ public class UserService implements UserServiceRules {
     }
 
     @Override
-    public UserDto create(UserDto input) {
+    public UserDTO create(UserDTO input) {
         var existsEmail = userRepository.findByEmail(input.getEmail());
         if(existsEmail.isPresent())
             throw new BadRequestException("User with email already exists!");

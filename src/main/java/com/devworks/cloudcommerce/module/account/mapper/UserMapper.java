@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.module.account.mapper;
 
-import com.devworks.cloudcommerce.module.account.dto.UserDto;
+import com.devworks.cloudcommerce.module.account.dto.UserDTO;
 import com.devworks.cloudcommerce.module.account.model.User;
 
 public class UserMapper {
@@ -8,7 +8,7 @@ public class UserMapper {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static User toEntity(UserDto dto) {
+    public static User toEntity(UserDTO dto) {
         return User.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())
@@ -25,8 +25,8 @@ public class UserMapper {
             .build();
     }
 
-    public static UserDto toDto(User entity) {
-        return UserDto.builder()
+    public static UserDTO toDto(User entity) {
+        return UserDTO.builder()
             .id(entity.getId())
             .createdAt(entity.getCreatedAt())
             .updatedAt(entity.getUpdatedAt())

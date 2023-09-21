@@ -1,6 +1,6 @@
 package com.devworks.cloudcommerce.common.security.filter;
 
-import com.devworks.cloudcommerce.common.exceptions.AuthenticationException;
+import com.devworks.cloudcommerce.common.exceptions.CustomAuthenticationException;
 import com.devworks.cloudcommerce.common.security.JwtService;
 import com.devworks.cloudcommerce.common.utils.HttpUtils;
 import com.devworks.cloudcommerce.module.account.model.Role;
@@ -62,7 +62,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 .toList();
 
         if (!invalidRoles.isEmpty())
-            throw new AuthenticationException("Invalid roles in token: " + invalidRoles);
+            throw new CustomAuthenticationException("Invalid roles in token: " + invalidRoles);
 
         /*
          * Check if the user has all the roles assigned to him
@@ -76,7 +76,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 .toList();
 
         if (!missingRoles.isEmpty())
-            throw new AuthenticationException("User does not have the required roles: " + missingRoles);
+            throw new CustomAuthenticationException("User does not have the required roles: " + missingRoles);
 
         auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(auth);
