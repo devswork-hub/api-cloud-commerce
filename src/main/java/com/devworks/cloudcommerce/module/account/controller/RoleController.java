@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
+import com.devworks.cloudcommerce.module.account.dto.RoleDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.AssignResourcesToRoleInput;
-import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.service.RoleService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<Role> create(@Valid @RequestBody Role request) {
+    public ResponseEntity<RoleDTO> create(@Valid @RequestBody RoleDTO request) {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.create(request));
     }
 
@@ -35,12 +35,12 @@ public class RoleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Role>> findALl() {
+    public ResponseEntity<List<RoleDTO>> findALl() {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> findById(@PathVariable("id") UUID id) {
+    public ResponseEntity<RoleDTO> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.findById(id));
     }
 

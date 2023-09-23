@@ -2,6 +2,8 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
+import com.devworks.cloudcommerce.module.account.dto.RoleDTO;
+import com.devworks.cloudcommerce.module.account.mapper.RoleMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
@@ -19,23 +21,28 @@ public class RoleService implements RoleServiceRules {
   }
 
   @Override
-  public Role create(Role request) {
+  public RoleDTO create(RoleDTO request) {
     var existsRole = roleRepository.findByName(request.getName());
     if (existsRole.isPresent())
       throw new BadRequestException("Role has already been declared");
 
-    return roleRepository.save(request);
+    Role role = RoleMapper.toEntity(request);
+    Role savedRole = roleRepository.save(role);
+    return RoleMapper.toDto(savedRole);
   }
 
   @Override
-  public List<Role> findAll() {
-    return roleRepository.findAll();
+  public List<RoleDTO> findAll() {
+    return roleRepository.findAll().stream()
+      .map(RoleMapper::toDto)
+      .toList();
   }
 
   @Override
-  public Role findById(UUID id) {
-    return roleRepository.findById(id)
-      .orElseThrow(() -> new NotFoundException("Not found role with id " + id));
+  public RoleDTO findById(UUID id) {
+    Role role = roleRepository.findById(id)
+        .orElseThrow(() -> new NotFoundException("Not found role with id " + id));
+    return RoleMapper.toDto(role);
   }
 
   @Override
