@@ -62,17 +62,17 @@ public class UserCredentialsDTO {
 
     private Set<Role> roles;
 
-    /**
-     * Defines the name to the account_status.
-     *
-     * @param accountStatus The name to be defined.
-     * @throws BadRequestException If the account_status is not valid.
-     */
-    public void setAccountStatus(String accountStatus) {
-        try {
-            this.accountStatus = AccountStatusType.valueOf(accountStatus);
-        } catch (IllegalArgumentException e) {
-            throw new BadRequestException("Invalid account status type with name " + accountStatus);
-        }
-    }
+//    /**
+//     * Defines the name to the account_status.
+//     *
+//     * @param accountStatus The name to be defined.
+//     * @throws BadRequestException If the account_status is not valid.
+//     */
+//    public void setAccountStatus(String accountStatus) {
+//        try {
+//            this.accountStatus = AccountStatusType.valueOf(accountStatus);
+//        } catch (IllegalArgumentException e) {
+//            throw new BadRequestException("Invalid account status type with name " + accountStatus);
+//        }
+//    }
 }
