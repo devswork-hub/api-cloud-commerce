@@ -39,10 +39,10 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         if (existsUserCredentials.isPresent())
             throw new BadRequestException("Credentials with email already exists!");
 
-        var user = userService.findById(existsUserCredentials.get().getId());
+        var user = userService.findById(input.getUserId());
 
-        var userCredentials = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input, user));
-        userCredentialsRepository.save(userCredentials);
+        var userCredentialsWithRoles = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input, user));
+        userCredentialsRepository.save(userCredentialsWithRoles);
     }
 
     private UserCredentials assignRoleToUserCredentials(UserCredentials credentials) {
