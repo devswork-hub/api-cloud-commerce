@@ -101,4 +101,26 @@ public class ValidationHandlers {
             .build()
         );
     }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> noSuchElementException(NoSuchElementException i) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponseDto
+            .builder()
+            .messages(i.getMessage())
+            .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+            .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .build()
+        );
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> nullPointerException(NullPointerException i) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponseDto
+            .builder()
+            .messages(i.getMessage())
+            .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+            .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .build()
+        );
+    }
 }
