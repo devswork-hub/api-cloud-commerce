@@ -59,4 +59,9 @@ public class User implements Serializable {
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    @PrePersist
+    public void insertDateTime() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
