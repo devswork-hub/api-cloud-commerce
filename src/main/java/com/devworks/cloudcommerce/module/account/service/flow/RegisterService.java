@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class Register {
+public class RegisterService {
     private final EncryptingService encryptingService;
     private final UserService userService;
     private final UserCredentialsService userCredentialsService;
 
-    public Register(
+    public RegisterService(
             EncryptingService encryptingService, UserService userService,
             UserCredentialsService userCredentialsService
     ) {
@@ -45,7 +45,7 @@ public class Register {
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);
         userCredentials.setUserId(createdUser.getId());
-        userCredentials.setAccountStatus(AccountStatusType.ACTIVE.getName());
+//        userCredentials.setAccountStatus(AccountStatusType.ACTIVE.getName());
 
         userCredentialsService.create(userCredentials);
     }
