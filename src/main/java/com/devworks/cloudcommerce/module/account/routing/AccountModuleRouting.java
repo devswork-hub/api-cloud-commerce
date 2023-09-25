@@ -32,10 +32,15 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
             // retrieve single role by id
             .requestMatchers(HttpMethod.GET, RoleRoute.ALL_CHILDREN.getValue())
                 .hasAnyAuthority(
+                    RolesType.CUSTOMER.getName(),
                     RolesType.MANAGER.getName(),
                     RolesType.ADMIN.getName()
                 )
-            .requestMatchers(HttpMethod.DELETE, RoleRoute.ALL_CHILDREN.getValue()).permitAll()
+            .requestMatchers(HttpMethod.DELETE, RoleRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
 
             .requestMatchers(HttpMethod.POST, ResourceRoute.BASE.getValue()).permitAll()
             .requestMatchers(HttpMethod.GET, ResourceRoute.BASE.getValue()).permitAll()
