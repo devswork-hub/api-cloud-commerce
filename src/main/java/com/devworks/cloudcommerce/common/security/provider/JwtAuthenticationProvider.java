@@ -23,6 +23,11 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         String email = authentication.getName();
         String password = String.valueOf(authentication.getCredentials());
 
+
+        // TODO
+        /*
+        * Create a service match to validate password
+        * */
         var userDetails = userCredentialsService.findByEmail(email);
 
         if (userDetails.getAccountStatus() == AccountStatusType.AWAITING_CONFIRMATION) {
