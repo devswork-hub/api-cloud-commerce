@@ -45,7 +45,7 @@ public class RegisterService {
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);
         userCredentials.setUserId(createdUser.getId());
-//        userCredentials.setAccountStatus(AccountStatusType.ACTIVE.getName());
+        userCredentials.setAccountStatus(AccountStatusType.ACTIVE);
 
         userCredentialsService.create(userCredentials);
     }
