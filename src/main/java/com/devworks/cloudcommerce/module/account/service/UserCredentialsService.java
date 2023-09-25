@@ -3,6 +3,8 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
+import com.devworks.cloudcommerce.common.utils.Validator;
+import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
@@ -34,6 +36,9 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
     }
 
     public void create(UserCredentialsDTO input) {
+        if(!Validator.isValidEnum(AccountStatusType.class, input.getAccountStatus().getName()))
+            throw new BadRequestException("Invalid account status");
+
         var existsUserCredentials = userCredentialsRepository.findByEmail(input.getEmail());
 
         if (existsUserCredentials.isPresent())
