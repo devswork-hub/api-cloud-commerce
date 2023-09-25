@@ -81,18 +81,14 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
         userCredentialsRepository.save(UserCredentialsMapper.toEntity(input, user));
     }
 
-    public UserCredentials findByEmailAndPassword(String email) {
+    public UserCredentials findByEmailAndPassword(String email, String password) {
         var userCredentials = userCredentialsRepository.findByEmail(email)
             .orElseThrow(() -> new NotFoundException("Not found user with email " + email));
 
-        if(!checkIsValidPassword(userCredentials, userCredentials.getPasswordHash())) {
-            throw new BadRequestException("Invalid email/username and password");
+        if(PasswordUtils.matches(password, userCredentials.getPasswordHash())) {
+            throw new BadRequestException("Invalid password");
         }
-        return userCredentials;
-    }
 
-    private boolean checkIsValidPassword(UserCredentials userCredentials, String password) {
-        var passwordWithSalt = password + userCredentials.getPasswordSalt();
-        return PasswordUtils.matches(passwordWithSalt, userCredentials.getPasswordHash());
+        return userCredentials;
     }
 }

@@ -28,7 +28,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         /*
         * Create a service match to validate password
         * */
-        var userDetails = userCredentialsService.findByEmail(email);
+        var userDetails = userCredentialsService.findByEmailAndPassword(email, password);
 
         if (userDetails.getAccountStatus() == AccountStatusType.AWAITING_CONFIRMATION) {
             throw new CustomAuthenticationException("User account is awaiting confirmation. Please confirm your email firstly.");
