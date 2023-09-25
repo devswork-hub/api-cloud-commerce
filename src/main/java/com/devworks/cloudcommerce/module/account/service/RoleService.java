@@ -2,6 +2,7 @@ package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
+import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.RoleDTO;
 import com.devworks.cloudcommerce.module.account.mapper.RoleMapper;
@@ -23,7 +24,7 @@ public class RoleService implements RoleServiceRules {
 
   @Override
   public RoleDTO create(RoleDTO request) {
-    if(!isRoleValid(request.getName()))
+    if(!Validator.isValidEnum(RolesType.class, request.getName()))
       throw new BadRequestException("Invalid role");
 
     var existsRole = roleRepository.findByName(request.getName());
@@ -63,13 +64,6 @@ public class RoleService implements RoleServiceRules {
   public boolean existsRole(String role) {
     return roleRepository.existsByName(role);
   }
-
-  private boolean isRoleValid(String roleName) {
-    for (RolesType role : RolesType.values()) {
-      if (role.name().equalsIgnoreCase(roleName)) {
-        return true;
-      }
-    }
-    return false;
-  }
 }
+
+
