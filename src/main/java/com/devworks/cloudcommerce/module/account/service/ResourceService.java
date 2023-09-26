@@ -49,15 +49,15 @@ public class ResourceService {
   public Resource update(UUID resourceId, UpdateResourceInput input) {
     var findedResource = findById(resourceId);
 
-    if (!input.name().isEmpty())
-        findedResource.setName(input.name());
+    if (input.name() != null && !input.name().isEmpty())
+      findedResource.setName(input.name());
 
     findedResource.setActive(input.active());
 
-    if (!input.actions().isEmpty())
+    if (input.actions() != null && !input.actions().isEmpty())
       findedResource.setActions(actionService.getValidActions(input.actions()));
 
-    if (!input.departments().isEmpty())
+    if (input.departments() != null && !input.departments().isEmpty())
       findedResource.setDepartments(departmentService.getValidDepartments(input.departments()));
 
     findedResource.setUpdatedAt(LocalDateTime.now());
@@ -72,15 +72,6 @@ public class ResourceService {
         throw new NotFoundException("Not found resource with id " + id);
 
       return resource.get();
-  }
-
-  public Resource findByName(String name) {
-    var resource = resourceRepository.findByName(name);
-
-    if(resource.isEmpty())
-      throw new NotFoundException("Resource not found");
-
-    return resource.get();
   }
 
   public List<Resource> findAll() {

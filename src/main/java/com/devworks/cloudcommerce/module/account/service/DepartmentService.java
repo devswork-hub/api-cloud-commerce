@@ -19,8 +19,8 @@ public class DepartmentService {
     public Set<Department> getValidDepartments(Set<Department> departments) {
         var validActions = new HashSet<Department>();
         for (Department department : departments) {
-            var existsAction = departmentRepository.findByName(department.getName())
-                .orElseThrow(() -> new NotFoundException("Department not found " + department.getName()));
+            var existsAction = departmentRepository.findById(department.getId())
+                .orElseThrow(() -> new NotFoundException("Department not found " + department.getId()));
             validActions.add(existsAction);
         }
         return validActions;
