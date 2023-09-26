@@ -33,6 +33,11 @@ public class ResourceController {
         return ResponseEntity.status(HttpStatus.OK).body(resourceService.findAll());
     }
 
+    @GetMapping("/{uuid}")
+    public ResponseEntity<Resource> findById(@PathVariable("uuid") UUID uuid) {
+        return ResponseEntity.status(HttpStatus.OK).body(resourceService.findById(uuid));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Resource> update(
         @Valid @PathVariable("id") UUID id,

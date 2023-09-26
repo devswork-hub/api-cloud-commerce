@@ -25,11 +25,24 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
             .requestMatchers(HttpMethod.POST, UserRoute.BASE.getValue()).permitAll()
             .requestMatchers(HttpMethod.DELETE, UserRoute.ALL_CHILDREN.getValue()).permitAll()
 
-            .requestMatchers(HttpMethod.POST, RoleRoute.BASE.getValue()).permitAll()
-            .requestMatchers(HttpMethod.POST, RoleRoute.ALL_CHILDREN.getValue()).permitAll()
-            .requestMatchers(HttpMethod.GET, RoleRoute.BASE.getValue()).permitAll()
-
-            // retrieve single role by id
+            /*
+             * Role definitions
+             * */
+            .requestMatchers(HttpMethod.POST, RoleRoute.BASE.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.POST, RoleRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.GET, RoleRoute.BASE.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
             .requestMatchers(HttpMethod.GET, RoleRoute.ALL_CHILDREN.getValue())
                 .hasAnyAuthority(
                     RolesType.CUSTOMER.getName(),
@@ -42,10 +55,35 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
                     RolesType.ADMIN.getName()
                 )
 
-            .requestMatchers(HttpMethod.POST, ResourceRoute.BASE.getValue()).permitAll()
-            .requestMatchers(HttpMethod.GET, ResourceRoute.BASE.getValue()).permitAll()
-            .requestMatchers(HttpMethod.PUT, ResourceRoute.ALL_CHILDREN.getValue()).permitAll()
-            .requestMatchers(HttpMethod.DELETE, ResourceRoute.ALL_CHILDREN.getValue()).permitAll()
+            /*
+             * Resource definitions
+             * */
+            .requestMatchers(HttpMethod.POST, ResourceRoute.BASE.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.GET, ResourceRoute.BASE.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.GET, ResourceRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.CUSTOMER.getName(),
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                ).
+            requestMatchers(HttpMethod.PUT, ResourceRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.DELETE, ResourceRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
         );
     }
 }
