@@ -1,7 +1,6 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.UserDTO;
-import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

@@ -189,79 +189,6 @@
 							"name": "{uuid}",
 							"item": [
 								{
-									"name": "# Create a single user",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response status code is 200\", function () {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"",
-													"pm.test(\"Email is in a valid format\", function () {",
-													"    const responseData = pm.response.json();",
-													"    ",
-													"    pm.expect(responseData).to.be.an('object');",
-													"    pm.expect(responseData.email).to.exist.and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
-													"});",
-													"",
-													"",
-													"pm.test(\"CPF is a non-empty string\", function () {",
-													"  const responseData = pm.response.json();",
-													"  ",
-													"  pm.expect(responseData).to.be.an('object');",
-													"  pm.expect(responseData.cpf).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CPF should not be empty\");",
-													"});",
-													"",
-													"",
-													"pm.test(\"created_at is a valid date format\", function () {",
-													"  const responseData = pm.response.json();",
-													"",
-													"  pm.expect(responseData).to.be.an('object');",
-													"  pm.expect(responseData.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{_admintoken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{_}}/user",
-											"host": [
-												"{{_}}"
-											],
-											"path": [
-												"user"
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "# Retrieve a single user by UUID",
 									"request": {
 										"auth": {
@@ -384,6 +311,79 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "# Create a single user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Email is in a valid format\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    pm.expect(responseData).to.be.an('object');",
+											"    pm.expect(responseData.email).to.exist.and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+											"});",
+											"",
+											"",
+											"pm.test(\"CPF is a non-empty string\", function () {",
+											"  const responseData = pm.response.json();",
+											"  ",
+											"  pm.expect(responseData).to.be.an('object');",
+											"  pm.expect(responseData.cpf).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CPF should not be empty\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"created_at is a valid date format\", function () {",
+											"  const responseData = pm.response.json();",
+											"",
+											"  pm.expect(responseData).to.be.an('object');",
+											"  pm.expect(responseData.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{_}}/user",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -495,42 +495,6 @@
 							]
 						},
 						{
-							"name": "# Create a single resource",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"Cart\",\n    \"path\": \"/cart\",\n    \"actions\": [\n        {\n            \"name\": \"CREATE\"\n        }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{_}}/resource",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"resource"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "# Retrieve all resources",
 							"event": [
 								{
@@ -585,6 +549,42 @@
 								},
 								"method": "GET",
 								"header": [],
+								"url": {
+									"raw": "{{_}}/resource",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"resource"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "# Create a single resource",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Cart\",\n    \"path\": \"/cart\",\n    \"actions\": [\n        {\n            \"name\": \"CREATE\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "{{_}}/resource",
 									"host": [
