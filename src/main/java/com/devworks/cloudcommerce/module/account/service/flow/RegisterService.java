@@ -3,14 +3,22 @@ package com.devworks.cloudcommerce.module.account.service.flow;
 import com.devworks.cloudcommerce.common.security.EncryptingService;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
+import com.devworks.cloudcommerce.module.account.dto.DepartmentDTO;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
+import com.devworks.cloudcommerce.module.account.model.Department;
+import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class RegisterService {
@@ -49,5 +57,15 @@ public class RegisterService {
         userCredentials.setAccountStatus(AccountStatusType.ACTIVE);
 
         userCredentialsService.create(userCredentials);
+
+        var departmentDashboard = new Department();
+        var dashboardResources = new HashSet<Resource>();
+
+        dashboardResources.add(new Resource());
+
+        departmentDashboard.setName("Dashboard");
+        departmentDashboard.setActive(true);
+        departmentDashboard.setResources(dashboardResources);
+
     }
 }

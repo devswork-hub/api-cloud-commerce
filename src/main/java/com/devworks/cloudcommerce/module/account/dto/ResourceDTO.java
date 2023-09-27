@@ -54,11 +54,6 @@ public class ResourceDTO {
     private Set<Action> actions;
 
     /**
-     * Optional Attributes
-     */
-    private Set<Department> departments;
-
-    /**
      * Defines the path to the resource.
      *
      * @param path The path to be defined.

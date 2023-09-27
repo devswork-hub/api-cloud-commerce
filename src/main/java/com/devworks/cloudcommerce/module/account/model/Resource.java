@@ -47,14 +47,4 @@ public class Resource {
         inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
     )
     private Set<Action> actions;
-
-    /**
-     * Optional Attributes
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "resources_departments",
-        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id")
-    )
-    private Set<Department> departments;
 }
