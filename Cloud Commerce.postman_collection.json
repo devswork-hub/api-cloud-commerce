@@ -186,56 +186,193 @@
 					"name": "user",
 					"item": [
 						{
-							"name": "Create user",
-							"event": [
+							"name": "{uuid}",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Response status code is 200\", function () {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"",
-											"pm.test(\"Email is in a valid format\", function () {",
-											"    const responseData = pm.response.json();",
-											"    ",
-											"    pm.expect(responseData).to.be.an('object');",
-											"    pm.expect(responseData.email).to.exist.and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
-											"});",
-											"",
-											"",
-											"pm.test(\"CPF is a non-empty string\", function () {",
-											"  const responseData = pm.response.json();",
-											"  ",
-											"  pm.expect(responseData).to.be.an('object');",
-											"  pm.expect(responseData.cpf).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CPF should not be empty\");",
-											"});",
-											"",
-											"",
-											"pm.test(\"created_at is a valid date format\", function () {",
-											"  const responseData = pm.response.json();",
-											"",
-											"  pm.expect(responseData).to.be.an('object');",
-											"  pm.expect(responseData.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "# Create a single user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Email is in a valid format\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData).to.be.an('object');",
+													"    pm.expect(responseData.email).to.exist.and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+													"});",
+													"",
+													"",
+													"pm.test(\"CPF is a non-empty string\", function () {",
+													"  const responseData = pm.response.json();",
+													"  ",
+													"  pm.expect(responseData).to.be.an('object');",
+													"  pm.expect(responseData.cpf).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CPF should not be empty\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"created_at is a valid date format\", function () {",
+													"  const responseData = pm.response.json();",
+													"",
+													"  pm.expect(responseData).to.be.an('object');",
+													"  pm.expect(responseData.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
 										}
-									}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{_}}/user",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
 								},
+								{
+									"name": "# Retrieve a single user by UUID",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/user/321635a2-0ac4-42cd-a952-6ec3a0c54827",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"user",
+												"321635a2-0ac4-42cd-a952-6ec3a0c54827"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "# Delete a single user by UUID",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/user/321635a2-0ac4-42cd-a952-6ec3a0c54827",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"user",
+												"321635a2-0ac4-42cd-a952-6ec3a0c54827"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "{email}",
+							"item": [
+								{
+									"name": "* Retrieve a single user by email",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/user/email?email=local001@email.com",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"user",
+												"email"
+											],
+											"query": [
+												{
+													"key": "email",
+													"value": "local001@email.com"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "# Retrieve all users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
 								"url": {
 									"raw": "{{_}}/user",
 									"host": [
@@ -243,123 +380,6 @@
 									],
 									"path": [
 										"user"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "* Get user by email",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/user/email?email=local002@email.com",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"user",
-										"email"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "local002@email.com"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "* Get all users",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/user",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"user"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get user by id",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/user/321635a2-0ac4-42cd-a952-6ec3a0c54827",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"user",
-										"321635a2-0ac4-42cd-a952-6ec3a0c54827"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "* Delete user",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/user/321635a2-0ac4-42cd-a952-6ec3a0c54827",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"user",
-										"321635a2-0ac4-42cd-a952-6ec3a0c54827"
 									]
 								}
 							},

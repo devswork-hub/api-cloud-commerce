@@ -8,6 +8,7 @@ import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.mapper.UserCredentialsMapper;
+import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.model.UserCredentials;
@@ -46,7 +47,7 @@ public class UserCredentialsService implements UserCredentialsServiceRules {
 
         var user = userService.findById(input.getUserId());
 
-        var userCredentialsWithRoles = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input, user));
+        var userCredentialsWithRoles = assignRoleToUserCredentials(UserCredentialsMapper.toEntity(input, UserMapper.toEntity(user)));
         userCredentialsRepository.save(userCredentialsWithRoles);
     }
 

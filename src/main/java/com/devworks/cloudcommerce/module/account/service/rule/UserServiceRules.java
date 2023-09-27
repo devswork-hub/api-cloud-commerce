@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public interface UserServiceRules {
     UserDTO create(UserDTO request);
-    User findByEmail(String email);
-    List<User> findAll();
-    User findById(UUID id);
+    UserDTO findByEmail(String email);
+    List<UserDTO> findAll();
+    UserDTO findById(UUID id);
     void delete(UUID id);
 }

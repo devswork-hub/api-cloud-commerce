@@ -32,20 +32,24 @@ public class UserService implements UserServiceRules {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
+    public UserDTO findByEmail(String email) {
+        var user = userRepository.findByEmail(email)
             .orElseThrow(() -> new NotFoundException("User with email not found"));
+        return UserMapper.toDto(user);
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        return userRepository.findAll().stream()
+            .map(UserMapper::toDto)
+            .toList();
     }
 
     @Override
-    public User findById(UUID id) {
-        return userRepository.findById(id)
+    public UserDTO findById(UUID id) {
+        var user = userRepository.findById(id)
             .orElseThrow(() -> new NotFoundException("User not found"));
+        return UserMapper.toDto(user);
     }
 
     @Override

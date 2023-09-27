@@ -8,7 +8,7 @@ public class DepartmentMapper {
         throw new IllegalStateException("You cannot instantiate a utility class");
     }
 
-    public static Department toEntity(Department dto) {
+    public static Department toEntity(DepartmentDTO dto) {
         return Department.builder()
             .id(dto.getId())
             .createdAt(dto.getCreatedAt())

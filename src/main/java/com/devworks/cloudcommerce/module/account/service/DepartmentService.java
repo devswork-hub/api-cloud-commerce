@@ -1,12 +1,17 @@
 package com.devworks.cloudcommerce.module.account.service;
 
+import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
+import com.devworks.cloudcommerce.module.account.dto.DepartmentDTO;
+import com.devworks.cloudcommerce.module.account.mapper.DepartmentMapper;
 import com.devworks.cloudcommerce.module.account.model.Department;
+import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class DepartmentService {
@@ -24,6 +29,17 @@ public class DepartmentService {
             validActions.add(existsAction);
         }
         return validActions;
+    }
+
+    public DepartmentDTO create(DepartmentDTO input) {
+        var optDepartment = departmentRepository.findById(input.getId());
+
+        if(optDepartment.isPresent())
+            throw new BadRequestException("Department already exists");
+
+        var department = departmentRepository.save(DepartmentMapper.toEntity(input));
+
+        return DepartmentMapper.toDto(department);
     }
 }
 

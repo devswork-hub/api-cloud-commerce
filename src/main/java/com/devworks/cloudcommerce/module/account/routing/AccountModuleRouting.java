@@ -16,14 +16,29 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
             .requestMatchers(HttpMethod.POST, "/register").permitAll()
             .requestMatchers(HttpMethod.POST, "/authenticate").permitAll()
 
+            /*
+            * User definitions
+            * */
             .requestMatchers(HttpMethod.GET, UserRoute.BASE.getValue())
                 .hasAnyAuthority(
                     RolesType.ADMIN.getName(),
                     RolesType.CUSTOMER.getName()
                 )
-            .requestMatchers(HttpMethod.GET, UserRoute.ALL_CHILDREN.getValue()).authenticated()
-            .requestMatchers(HttpMethod.POST, UserRoute.BASE.getValue()).permitAll()
-            .requestMatchers(HttpMethod.DELETE, UserRoute.ALL_CHILDREN.getValue()).permitAll()
+            .requestMatchers(HttpMethod.GET, UserRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.ADMIN.getName(),
+                    RolesType.CUSTOMER.getName()
+                )
+            .requestMatchers(HttpMethod.POST, UserRoute.BASE.getValue())
+                .hasAnyAuthority(
+                    RolesType.ADMIN.getName(),
+                    RolesType.CUSTOMER.getName()
+                )
+            .requestMatchers(HttpMethod.DELETE, UserRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.ADMIN.getName(),
+                    RolesType.CUSTOMER.getName()
+                )
 
             /*
              * Role definitions

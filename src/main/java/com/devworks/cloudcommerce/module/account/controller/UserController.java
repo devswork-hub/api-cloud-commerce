@@ -26,17 +26,17 @@ public class UserController {
     }
 
     @GetMapping("/email")
-    public ResponseEntity<User> findByEmail(@RequestParam String email) {
+    public ResponseEntity<UserDTO> findByEmail(@RequestParam String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable("id") UUID id) {
+    public ResponseEntity<UserDTO> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 
