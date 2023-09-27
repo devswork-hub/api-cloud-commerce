@@ -17,12 +17,10 @@ import java.util.UUID;
 @Service
 public class ResourceService {
   private final ActionService actionService;
-  private final DepartmentService departmentService;
   private final ResourceRepository resourceRepository;
 
-  public ResourceService(ActionService actionService, DepartmentService departmentService, ResourceRepository resourceRepository) {
+  public ResourceService(ActionService actionService, ResourceRepository resourceRepository) {
     this.actionService = actionService;
-    this.departmentService = departmentService;
     this.resourceRepository = resourceRepository;
   }
 
@@ -36,10 +34,6 @@ public class ResourceService {
 
     if(!request.getActions().isEmpty()) {
       resource.setActions(actionService.getValidActions(request.getActions()));
-    }
-
-    if(request.getDepartments() != null) {
-      resource.setDepartments(departmentService.getValidDepartments(request.getDepartments()));
     }
 
     return resourceRepository.save(resource);
@@ -56,9 +50,6 @@ public class ResourceService {
 
     if (input.actions() != null && !input.actions().isEmpty())
       findedResource.setActions(actionService.getValidActions(input.actions()));
-
-    if (input.departments() != null && !input.departments().isEmpty())
-      findedResource.setDepartments(departmentService.getValidDepartments(input.departments()));
 
     findedResource.setUpdatedAt(LocalDateTime.now());
 
