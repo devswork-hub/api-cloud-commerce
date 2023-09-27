@@ -16,6 +16,7 @@ public class DepartmentMapper {
 
             .name(dto.getName())
             .active(dto.isActive())
+            .resources(dto.getResources())
             .build();
     }
 
@@ -27,6 +28,7 @@ public class DepartmentMapper {
 
             .name(entity.getName())
             .active(entity.isActive())
+            .resources(entity.getResources())
             .build();
     }
 }

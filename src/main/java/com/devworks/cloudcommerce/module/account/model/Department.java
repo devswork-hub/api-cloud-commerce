@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -36,4 +37,14 @@ public class Department {
 
     @Column(nullable = false)
     private boolean active;
+
+    /**
+     * Optional Attributes
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "departments_resources",
+        joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id")
+    )
+    private Set<Resource> resources;
 }
