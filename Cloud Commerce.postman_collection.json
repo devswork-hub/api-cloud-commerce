@@ -1,19 +1,92 @@
 {
 	"info": {
-		"_postman_id": "7f0cd0f4-ad4e-4b1a-9642-f1f7ddd71637",
+		"_postman_id": "afc1188e-b681-4972-b6ca-57bfb87ddf36",
 		"name": "Cloud Commerce",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"description": "- `\\*. authenticated routes / require jwt in headers`\n    \n- `_ require Bearer token / require roles`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29975715"
 	},
 	"item": [
 		{
-			"name": "Accounts",
+			"name": "accounts",
 			"item": [
 				{
-					"name": "Role",
+					"name": "role",
 					"item": [
 						{
-							"name": "* Create role",
+							"name": "{uuid}",
+							"item": [
+								{
+									"name": "# Retrieve a single role",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/role/10d90a5e-e74e-4c9b-84ea-8418623df373",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"role",
+												"10d90a5e-e74e-4c9b-84ea-8418623df373"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "# Delete a single role",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/role/550d7646-2b0d-4d6f-88d6-15b242277d0e",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"role",
+												"550d7646-2b0d-4d6f-88d6-15b242277d0e"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "# Create a single role",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -38,8 +111,18 @@
 							"response": []
 						},
 						{
-							"name": "* Get all roles",
+							"name": "# Retrieve all roles",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -55,44 +138,18 @@
 							"response": []
 						},
 						{
-							"name": "* Get role by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/role/7c41d15c-3bf1-4819-95bd-5174f222cbb7",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"role",
-										"7c41d15c-3bf1-4819-95bd-5174f222cbb7"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "* Delete role by id",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{_}}/role/7c41d15c-3bf1-4819-95bd-5174f222cbb7",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"role",
-										"7c41d15c-3bf1-4819-95bd-5174f222cbb7"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Assign resources to role",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -126,10 +183,47 @@
 					]
 				},
 				{
-					"name": "User",
+					"name": "user",
 					"item": [
 						{
 							"name": "Create user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Email is in a valid format\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    pm.expect(responseData).to.be.an('object');",
+											"    pm.expect(responseData.email).to.exist.and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+											"});",
+											"",
+											"",
+											"pm.test(\"CPF is a non-empty string\", function () {",
+											"  const responseData = pm.response.json();",
+											"  ",
+											"  pm.expect(responseData).to.be.an('object');",
+											"  pm.expect(responseData.cpf).to.be.a('string').and.to.have.lengthOf.at.least(1, \"CPF should not be empty\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"created_at is a valid date format\", function () {",
+											"  const responseData = pm.response.json();",
+											"",
+											"  pm.expect(responseData).to.be.an('object');",
+											"  pm.expect(responseData.created_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -162,7 +256,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDbG91ZCBDb21tZXJjZSBBUEkiLCJzdWIiOiJsb2NhbDAwMkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImV4cCI6MTY5NDAzNjA4OX0.3IQoP0mGB1oliFj34C1NM1bXGoMLb16Ys2cIgffoIa8",
+											"value": "{{_admintoken}}",
 											"type": "string"
 										}
 									]
@@ -196,7 +290,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJDbG91ZCBDb21tZXJjZSBBUEkiLCJzdWIiOiJsb2NhbDAwMkBlbWFpbC5jb20iLCJyb2xlcyI6WyJST0xFX0NVU1RPTUVSIl0sImV4cCI6MTY5NDAzNDY3N30.VAuUH738Pd_roK6G-a8glUdto6o-NGlAKOQ6NzrD0fo",
+											"value": "{{_admintoken}}",
 											"type": "string"
 										}
 									]
@@ -218,6 +312,16 @@
 						{
 							"name": "Get user by id",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -236,6 +340,16 @@
 						{
 							"name": "* Delete user",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
@@ -254,22 +368,203 @@
 					]
 				},
 				{
-					"name": "Resource",
+					"name": "resource",
 					"item": [
 						{
-							"name": "Create resource",
+							"name": "{uuid}",
+							"item": [
+								{
+									"name": "# Retrieve a single resource",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"",
+													"pm.test(\"Id is a non-empty string\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Id should not be empty\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"createdAt is in a valid date format\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"createdAt is not in a valid date format\");",
+													"});",
+													"",
+													"",
+													"pm.test(\"Name is a non-empty string\", function () {",
+													"    const responseData = pm.response.json();",
+													"    ",
+													"    pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{_}}/resource/2fbe3df1-7c22-4c3c-a81e-ce92df96d179",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"resource",
+												"2fbe3df1-7c22-4c3c-a81e-ce92df96d179"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "# Update a single resource",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"\",\n    \"actions\": [\n        {\n            \"name\": \"READ\"\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{_}}/resource/2fbe3df1-7c22-4c3c-a81e-ce92df96d179",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"resource",
+												"2fbe3df1-7c22-4c3c-a81e-ce92df96d179"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "# Create a single resource",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Produtos\"\n}",
+									"raw": "{\n    \"name\": \"Cart\",\n    \"path\": \"/cart\",\n    \"actions\": [\n        {\n            \"name\": \"CREATE\"\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
+								"url": {
+									"raw": "{{_}}/resource",
+									"host": [
+										"{{_}}"
+									],
+									"path": [
+										"resource"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "# Retrieve all resources",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Verify that the response is an array\", function () {",
+											"  const responseData = pm.response.json();",
+											"  ",
+											"  pm.expect(responseData).to.be.an('array');",
+											"});",
+											"",
+											"",
+											"pm.test(\"Actions array is present and contains at least one element\", function () {",
+											"  const responseData = pm.response.json();",
+											"",
+											"  pm.expect(responseData).to.be.an('array');",
+											"  pm.expect(responseData).to.have.lengthOf.at.least(1, \"Actions array should not be empty\");",
+											"  responseData.forEach(function (item) {",
+											"    pm.expect(item.actions).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1, \"Actions array should not be empty\");",
+											"  });",
+											"});",
+											"",
+											"",
+											"pm.test(\"Departments array is present and empty\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    pm.expect(responseData).to.have.lengthOf(1);",
+											"    pm.expect(responseData[0]).to.have.property('departments').that.is.an('array').and.to.be.empty;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{_admintoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
 								"url": {
 									"raw": "{{_}}/resource",
 									"host": [
@@ -291,7 +586,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local002@email.com\",\n    \"password\": \"123123\"\n}",
+							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"customer@email.com\",\n    \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -299,12 +594,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{_}}/sign-up",
+							"raw": "{{_}}/register",
 							"host": [
 								"{{_}}"
 							],
 							"path": [
-								"sign-up"
+								"register"
 							]
 						}
 					},
@@ -312,12 +607,53 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"access_token is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.access_token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"expires_at is a valid date format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.expires_at).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"expires_at is not a valid date format\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"refresh_token is null or a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.refresh_token).to.satisfy(function (value) {",
+									"    return value === null || typeof value === 'string' && value.length > 0;",
+									"  }, \"refresh_token should be null or a non-empty string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"local002@email.com\",\n    \"password\": \"123123\"\n}",
+							"raw": "{\n    \"email\": \"admin@email.com\",\n    \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
