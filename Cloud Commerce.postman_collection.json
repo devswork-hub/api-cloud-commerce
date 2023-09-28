@@ -645,6 +645,44 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "# Assign resource to role",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"resources_ids\": [\"2692fade-b72d-4f8f-a5eb-f7c64532fe96\"]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{_}}/role/71e9c988-81fb-4312-8cf8-b5cb9c79fef8/resources",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"role",
+												"71e9c988-81fb-4312-8cf8-b5cb9c79fef8",
+												"resources"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						}

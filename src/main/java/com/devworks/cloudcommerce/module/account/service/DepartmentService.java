@@ -5,13 +5,11 @@ import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.module.account.dto.DepartmentDTO;
 import com.devworks.cloudcommerce.module.account.mapper.DepartmentMapper;
 import com.devworks.cloudcommerce.module.account.model.Department;
-import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class DepartmentService {

@@ -5,13 +5,16 @@ import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.module.account.dto.ResourceDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.UpdateResourceInput;
 import com.devworks.cloudcommerce.module.account.mapper.ResourceMapper;
+import com.devworks.cloudcommerce.module.account.model.Department;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -72,5 +75,15 @@ public class ResourceService {
   public void deleteById(UUID id) {
     findById(id);
     resourceRepository.deleteById(id);
+  }
+
+  public Set<Resource> getValidResourcesIds(Set<UUID> resources) {
+    var validResources = new HashSet<Resource>();
+    for (UUID resource : resources) {
+      var existsResource = resourceRepository.findById(resource)
+              .orElseThrow(() -> new NotFoundException("Resource not found " + resource));
+      validResources.add(existsResource);
+    }
+    return validResources;
   }
 }
