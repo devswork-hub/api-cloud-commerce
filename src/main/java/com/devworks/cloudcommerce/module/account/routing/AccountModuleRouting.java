@@ -69,16 +69,6 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
                     RolesType.MANAGER.getName(),
                     RolesType.ADMIN.getName()
                 )
-            .requestMatchers(HttpMethod.GET, RoleRoute.ALL_CHILDREN.getValue() + "/resources")
-                .hasAnyAuthority(
-                    RolesType.MANAGER.getName(),
-                    RolesType.ADMIN.getName()
-                )
-            .requestMatchers(HttpMethod.POST, RoleRoute.ALL_CHILDREN.getValue() + "/resources")
-                .hasAnyAuthority(
-                    RolesType.MANAGER.getName(),
-                    RolesType.ADMIN.getName()
-                )
 
             /*
              * Resource definitions
@@ -105,6 +95,20 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
                     RolesType.ADMIN.getName()
                 )
             .requestMatchers(HttpMethod.DELETE, ResourceRoute.ALL_CHILDREN.getValue())
+                .hasAnyAuthority(
+                    RolesType.MANAGER.getName(),
+                    RolesType.ADMIN.getName()
+                )
+
+            /*
+            * Permission definitions
+            * */
+            .requestMatchers(HttpMethod.POST, "/permission")
+                .hasAnyAuthority(
+                        RolesType.MANAGER.getName(),
+                        RolesType.ADMIN.getName()
+                )
+            .requestMatchers(HttpMethod.POST, "/permission/**")
                 .hasAnyAuthority(
                     RolesType.MANAGER.getName(),
                     RolesType.ADMIN.getName()

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -13,8 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "roles_resources")
-public class RoleResource {
+@Table(name = "permissions")
+public class Permission {
     /**
      * Internal Base Attributes
      */
@@ -36,17 +35,11 @@ public class RoleResource {
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "action_id", referencedColumnName = "id", nullable = false)
+    private Action action;
+
     @ManyToOne
     @JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)
     private Resource resource;
-
-    /**
-     * Optional Attributes
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_resources_actions",
-            joinColumns = @JoinColumn(name = "role_resource_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
-    )
-    private Set<Action> actions;
 }
