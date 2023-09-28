@@ -2,7 +2,6 @@ package com.devworks.cloudcommerce.module.account.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -45,9 +44,9 @@ public class RoleResource {
      * Optional Attributes
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_resources_permissions",
-        joinColumns = @JoinColumn(name = "role_resource_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    @JoinTable(name = "roles_resources_actions",
+            joinColumns = @JoinColumn(name = "role_resource_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
     )
-    private Set<Resource> permissions;
+    private Set<Action> actions;
 }

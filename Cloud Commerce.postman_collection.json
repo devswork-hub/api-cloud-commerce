@@ -600,6 +600,57 @@
 					]
 				},
 				{
+					"name": "role_resource",
+					"item": [
+						{
+							"name": "{uuid}",
+							"item": [
+								{
+									"name": "* Retrieve all resources of a function",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{_}}/role/71e9c988-81fb-4312-8cf8-b5cb9c79fef8/resources",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"role",
+												"71e9c988-81fb-4312-8cf8-b5cb9c79fef8",
+												"resources"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Sign Up",
 					"request": {
 						"method": "POST",
