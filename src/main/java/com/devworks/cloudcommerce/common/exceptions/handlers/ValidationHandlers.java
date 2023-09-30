@@ -2,6 +2,7 @@ package com.devworks.cloudcommerce.common.exceptions.handlers;
 
 import com.devworks.cloudcommerce.common.utils.Converter;
 import com.devworks.cloudcommerce.common.dto.ErrorResponseDto;
+import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -120,6 +121,17 @@ public class ValidationHandlers {
             .messages(i.getMessage())
             .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
             .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .build()
+        );
+    }
+
+    @ExceptionHandler(UnexpectedTypeException.class)
+    public ResponseEntity<ErrorResponseDto<Object>> unexpectedTypeException(UnexpectedTypeException i) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseDto
+            .builder()
+            .messages(i.getMessage())
+            .httpStatus(HttpStatus.BAD_REQUEST)
+            .statusCode(HttpStatus.BAD_REQUEST.value())
             .build()
         );
     }

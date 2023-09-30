@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class ActionService {
@@ -24,5 +25,10 @@ public class ActionService {
             validActions.add(existsAction);
         }
         return validActions;
+    }
+
+    public Action findById(UUID uuid) {
+        return actionRepository.findById(uuid)
+            .orElseThrow(() -> new NotFoundException("Action not found"));
     }
 }
