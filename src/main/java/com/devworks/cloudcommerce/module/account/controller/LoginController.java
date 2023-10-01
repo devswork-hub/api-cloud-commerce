@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.account.controller.flow;
+package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.input.LoginInput;
 import com.devworks.cloudcommerce.module.account.dto.output.LoginOutput;

@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.account.controller.flow;
+package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.service.flow.RegisterService;
