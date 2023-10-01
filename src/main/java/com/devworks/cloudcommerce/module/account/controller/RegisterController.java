@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
-import com.devworks.cloudcommerce.module.account.service.flow.RegisterService;
+import com.devworks.cloudcommerce.module.account.service.RegisterService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
