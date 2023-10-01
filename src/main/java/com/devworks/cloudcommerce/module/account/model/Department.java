@@ -41,6 +41,8 @@ public class Department {
     /**
      * Optional Attributes
      */
+    // TODO
+    // Override departments to Team, following the ReBAC principles
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "departments_resources",
         joinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"),
