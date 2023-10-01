@@ -1,8 +1,8 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
-import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.constants.UserType;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,6 +12,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -56,6 +57,8 @@ public class UserDTO {
 
     @JsonProperty("user_type")
     private UserType userType;
+
+    Set<Role> roles;
 
     public void setUserType(String name) {
         try {
