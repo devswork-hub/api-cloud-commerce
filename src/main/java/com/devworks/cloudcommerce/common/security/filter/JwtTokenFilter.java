@@ -3,9 +3,10 @@ package com.devworks.cloudcommerce.common.security.filter;
 import com.devworks.cloudcommerce.common.exceptions.CustomAuthenticationException;
 import com.devworks.cloudcommerce.common.security.JwtService;
 import com.devworks.cloudcommerce.common.utils.HttpUtils;
+import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.service.RoleService;
-import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
+import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,13 +24,13 @@ import java.io.IOException;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserCredentialsService userCredentialsService;
     private final RoleService roleService;
+    private final UserService userService;
 
-    public JwtTokenFilter(JwtService jwtService, UserCredentialsService userCredentialsService, RoleService roleService) {
+    public JwtTokenFilter(JwtService jwtService, RoleService roleService, UserService userService) {
         this.jwtService = jwtService;
-        this.userCredentialsService = userCredentialsService;
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     @Override
@@ -49,8 +50,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private void authenticateByToken(String token, HttpServletRequest request) {
         var subject = jwtService.getSubject(token);
-        var userCredentials = userCredentialsService.findByEmail(subject);
-        var auth = new UsernamePasswordAuthenticationToken(subject, null, userCredentials.getAuthorities());
+        var user = userService.findByEmail(subject);
+        var auth = new UsernamePasswordAuthenticationToken(
+            subject,
+            null,
+            UserMapper
+                .toEntity(user)
+                .getAuthorities()
+        );
 
         var tokenRoles = jwtService.getRoles(token);
 
@@ -67,7 +74,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         /*
          * Check if the user has all the roles assigned to him
          * */
-        var userRoleNames = userCredentials.getRoles().stream()
+        var userRoleNames = user.getRoles().stream()
                 .map(Role::getName)
                 .toList();
 
