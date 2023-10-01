@@ -1,7 +1,7 @@
 package com.devworks.cloudcommerce.module.account.service.rule;
 
-import com.devworks.cloudcommerce.module.account.model.UserCredentials;
+import com.devworks.cloudcommerce.module.account.model.Credentials;
 
 public interface UserCredentialsServiceRules {
-    UserCredentials findByEmailAndPassword(String email, String password);
+    Credentials findByEmailAndPassword(String email, String password);
 }

@@ -58,6 +58,4 @@ public class UserCredentialsDTO {
 
     @JsonProperty("account_status")
     private AccountStatusType accountStatus;
-
-    private Set<Role> roles;
 }

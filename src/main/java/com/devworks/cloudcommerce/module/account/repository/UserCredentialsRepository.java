@@ -1,11 +1,12 @@
 package com.devworks.cloudcommerce.module.account.repository;
 
-import com.devworks.cloudcommerce.module.account.model.UserCredentials;
+import com.devworks.cloudcommerce.module.account.model.Credentials;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface UserCredentialsRepository extends JpaRepository<UserCredentials, Long> {
-    Optional<UserCredentials> findByEmail(String email);
+public interface UserCredentialsRepository extends JpaRepository<Credentials, UUID> {
+    Optional<Credentials> findByEmail(String email);
     boolean existsByEmail(String email);
 }
