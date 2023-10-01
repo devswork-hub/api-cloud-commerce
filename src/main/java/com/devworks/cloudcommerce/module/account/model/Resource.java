@@ -40,13 +40,4 @@ public class Resource {
 
     @Column(nullable = false)
     private boolean active;
-
-    // TODO
-    // Um recurso, nao necessariamente precisa ter acoes em cima dele
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "resources_actions",
-        joinColumns = @JoinColumn(name = "resource_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
-    )
-    private Set<Action> actions;
 }

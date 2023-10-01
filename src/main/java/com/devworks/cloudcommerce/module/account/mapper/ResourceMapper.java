@@ -17,7 +17,6 @@ public class ResourceMapper {
             .name(dto.getName())
             .path(dto.getPath())
             .active(dto.isActive())
-            .actions(dto.getActions())
             .build();
     }
 
@@ -30,7 +29,6 @@ public class ResourceMapper {
             .name(entity.getName())
             .path(entity.getPath())
             .active(entity.isActive())
-            .actions(entity.getActions())
             .build();
     }
 }
