@@ -1,38 +1,35 @@
-package com.devworks.cloudcommerce.module.account.service.flow;
+package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.security.EncryptingService;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
-import com.devworks.cloudcommerce.module.account.dto.DepartmentDTO;
+import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
-import com.devworks.cloudcommerce.module.account.model.Department;
-import com.devworks.cloudcommerce.module.account.model.Resource;
+import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.model.User;
-import com.devworks.cloudcommerce.module.account.service.UserCredentialsService;
-import com.devworks.cloudcommerce.module.account.service.UserService;
+import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 @Service
 public class RegisterService {
     private final EncryptingService encryptingService;
     private final UserService userService;
-    private final UserCredentialsService userCredentialsService;
+    private final CredentialsService credentialsService;
+    private final RoleRepository roleRepository;
 
     public RegisterService(
             EncryptingService encryptingService, UserService userService,
-            UserCredentialsService userCredentialsService
-    ) {
+            CredentialsService credentialsService,
+            RoleRepository roleRepository) {
         this.encryptingService = encryptingService;
         this.userService = userService;
-        this.userCredentialsService = userCredentialsService;
+        this.credentialsService = credentialsService;
+        this.roleRepository = roleRepository;
     }
 
 
@@ -43,7 +40,8 @@ public class RegisterService {
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
 
-        var createdUser = userService.create(UserMapper.toDto(user));
+        var userWithAssignerRoles = assignDefaultRolesToUser(user);
+        var createdUser = userService.create(UserMapper.toDto(userWithAssignerRoles));
 
         var salt = encryptingService.generateSalt();
         var combinedPasswordAndSalt = input.getPassword() + salt;
@@ -56,16 +54,27 @@ public class RegisterService {
         userCredentials.setUserId(createdUser.getId());
         userCredentials.setAccountStatus(AccountStatusType.ACTIVE);
 
-        userCredentialsService.create(userCredentials);
+        credentialsService.create(userCredentials);
+    }
 
-        var departmentDashboard = new Department();
-        var dashboardResources = new HashSet<Resource>();
+    private User assignDefaultRolesToUser(User input) {
+        var roles = input.getRoles();
 
-        dashboardResources.add(new Resource());
+        if(roles == null) {
+            roles = new HashSet<>();
+            input.setRoles(roles);
+        }
 
-        departmentDashboard.setName("Dashboard");
-        departmentDashboard.setActive(true);
-        departmentDashboard.setResources(dashboardResources);
+        var customerRole = roleRepository.findByName(RolesType.CUSTOMER.getName())
+            .orElseGet(() -> {
+                var defaultCustomerRole = new Role();
+               defaultCustomerRole.setName(RolesType.CUSTOMER.getName());
+               defaultCustomerRole.setDescription(RolesType.CUSTOMER.getDescription());
+               return roleRepository.save(defaultCustomerRole);
+            });
 
+        roles.add(customerRole);
+
+        return input;
     }
 }
