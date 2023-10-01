@@ -1,4 +1,4 @@
-package com.devworks.cloudcommerce.module.account.service.flow;
+package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.security.JwtService;
 import com.devworks.cloudcommerce.module.account.dto.input.LoginInput;
