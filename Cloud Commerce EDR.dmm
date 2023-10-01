@@ -1350,7 +1350,7 @@
 		"replaceSpace": "_",
 		"color": "transparent",
 		"sideSelections": true,
-		"isDirty": false,
+		"isDirty": true,
 		"storedin": {
 			"major": 7,
 			"minor": 2,
@@ -1385,7 +1385,7 @@
 			"indexes": true,
 			"relations": true
 		},
-		"lastSaved": "Sun Oct 01 2023 11:47:42 GMT-0300 (Horário Padrão de Brasília)"
+		"lastSaved": "Sun Oct 01 2023 11:50:46 GMT-0300 (Horário Padrão de Brasília)"
 	},
 	"otherObjects": {},
 	"diagrams": {

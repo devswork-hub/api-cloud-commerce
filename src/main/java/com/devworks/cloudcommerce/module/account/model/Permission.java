@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -31,10 +32,6 @@ public class Permission {
     /**
      * Required Attributes
      */
-    @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    private Role role;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "action_id", referencedColumnName = "id", nullable = false)
     private Action action;
@@ -42,4 +39,11 @@ public class Permission {
     @ManyToOne
     @JoinColumn(name = "resource_id", referencedColumnName = "id", nullable = false)
     private Resource resource;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "permissions_modules",
+        joinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "module_id", referencedColumnName = "id")
+    )
+    private Set<Module> modules;
 }
