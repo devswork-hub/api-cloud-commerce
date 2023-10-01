@@ -2,7 +2,7 @@ package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.input.LoginInput;
 import com.devworks.cloudcommerce.module.account.dto.output.LoginOutput;
-import com.devworks.cloudcommerce.module.account.service.flow.LoginService;
+import com.devworks.cloudcommerce.module.account.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
