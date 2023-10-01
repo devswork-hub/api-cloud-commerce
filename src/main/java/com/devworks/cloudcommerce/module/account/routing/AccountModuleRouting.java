@@ -39,6 +39,12 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
                     RolesType.ADMIN.getName(),
                     RolesType.CUSTOMER.getName()
                 )
+            .requestMatchers(HttpMethod.PUT, "/user/*/assign")
+                .hasAnyAuthority(
+                    RolesType.ADMIN.getName(),
+                    RolesType.CUSTOMER.getName()
+                )
+
 
             /*
              * Role definitions

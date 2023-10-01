@@ -11,7 +11,9 @@ import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import com.devworks.cloudcommerce.module.account.service.rule.RoleServiceRules;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -59,6 +61,15 @@ public class RoleService implements RoleServiceRules {
   public Role findByName(String role) {
     return roleRepository.findByName(role)
         .orElseThrow(() -> new NotFoundException("Role not found with name " + role));
+  }
+
+  public Set<Role> getValidRolesByUUID(Set<UUID> rolesIds) {
+    var validRoles = new HashSet<Role>();
+    for (UUID role : rolesIds) {
+      var existsResource = findById(role);
+      validRoles.add(RoleMapper.toEntity(existsResource));
+    }
+    return validRoles;
   }
 
   public boolean existsRole(String role) {

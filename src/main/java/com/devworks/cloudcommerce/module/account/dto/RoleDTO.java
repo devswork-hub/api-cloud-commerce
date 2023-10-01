@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.module.account.dto;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
+import com.devworks.cloudcommerce.module.account.model.Permission;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import jdk.jfr.BooleanFlag;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -46,6 +48,14 @@ public class RoleDTO {
     @NotNull(message = "attribute active is required")
     @BooleanFlag
     private boolean active;
+
+    /**
+     * Optional Attributes
+     */
+    // TODO
+    // Implementar regra,pra definir ao menos uma permissao ao usuario
+    // Principle Of Least Privilege
+    private Set<Permission> permissions;
 
     /**
      * Defines the name to the role.

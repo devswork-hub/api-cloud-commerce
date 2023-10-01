@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -40,4 +41,14 @@ public class Role implements Serializable {
 
     @Column(nullable = false)
     private boolean active;
+
+    /**
+     * Optional Attributes
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_permissions",
+        joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+    )
+    private Set<Permission> permissions;
 }

@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.common.exceptions.BadRequestException;
 import com.devworks.cloudcommerce.module.account.constants.UserType;
 import com.devworks.cloudcommerce.module.account.dto.UserDTO;
+import com.devworks.cloudcommerce.module.account.dto.input.user.AssignRolesInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.User;
 import com.devworks.cloudcommerce.module.account.repository.UserRepository;
@@ -16,9 +17,11 @@ import java.util.UUID;
 @Service
 public class UserService implements UserServiceRules {
     private final UserRepository userRepository;
+    private final RoleService roleService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -56,6 +59,13 @@ public class UserService implements UserServiceRules {
     public void delete(UUID id) {
         findById(id);
         userRepository.deleteById(id);
+    }
+
+    public void assignRoles(UUID userId, AssignRolesInput input) {
+        var existsUser = findById(userId);
+        var validRoles = roleService.getValidRolesByUUID(input.roles());
+        existsUser.setRoles(validRoles);
+        userRepository.save(UserMapper.toEntity(existsUser));
     }
 
     public List<User> getAllCustomers() {

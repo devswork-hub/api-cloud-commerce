@@ -1,6 +1,8 @@
 package com.devworks.cloudcommerce.module.account.controller;
 
 import com.devworks.cloudcommerce.module.account.dto.UserDTO;
+import com.devworks.cloudcommerce.module.account.dto.input.user.AssignRolesInput;
+import com.devworks.cloudcommerce.module.account.model.Credentials;
 import com.devworks.cloudcommerce.module.account.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,14 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         userService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PutMapping("/{uuid}/assign")
+    public ResponseEntity<Credentials> assingRoles(
+            @PathVariable("uuid") UUID userId,
+            @Valid @RequestBody AssignRolesInput input) {
+        userService.assignRoles(userId, input);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }

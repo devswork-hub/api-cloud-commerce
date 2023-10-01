@@ -3,6 +3,8 @@ package com.devworks.cloudcommerce.module.account.model;
 import com.devworks.cloudcommerce.module.account.constants.UserType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -59,6 +61,28 @@ public class User implements Serializable {
     @Column(name = "user_type")
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles;
+
+    public Collection<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (roles != null) {
+            for (Role role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+        }
+        return authorities;
+    }
+
+    public boolean isAccountNonExpired() {return true; }
+    public boolean isAccountNonLocked() {return true; }
+    public boolean isCredentialsNonExpired() {return true; }
+    public boolean isEnabled() {return true; }
 
     @PrePersist
     public void insertDateTime() {
