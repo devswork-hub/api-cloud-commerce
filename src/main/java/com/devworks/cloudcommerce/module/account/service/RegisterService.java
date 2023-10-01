@@ -7,8 +7,7 @@ import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
-import com.devworks.cloudcommerce.module.account.model.Role;
-import com.devworks.cloudcommerce.module.account.model.User;
+import com.devworks.cloudcommerce.module.account.model.*;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +22,10 @@ public class RegisterService {
     private final RoleRepository roleRepository;
 
     public RegisterService(
-            EncryptingService encryptingService, UserService userService,
-            CredentialsService credentialsService,
-            RoleRepository roleRepository) {
+        EncryptingService encryptingService, UserService userService,
+        CredentialsService credentialsService,
+        RoleRepository roleRepository
+    ) {
         this.encryptingService = encryptingService;
         this.userService = userService;
         this.credentialsService = credentialsService;
