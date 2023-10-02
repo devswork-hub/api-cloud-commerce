@@ -119,6 +119,7 @@ public class AccountModuleRouting extends AbstractHttpConfigurer<AccountModuleRo
                     RolesType.MANAGER.getName(),
                     RolesType.ADMIN.getName()
                 )
+        .requestMatchers(HttpMethod.GET, "/access").permitAll()
         );
     }
 }
