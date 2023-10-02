@@ -5,6 +5,7 @@ import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.common.utils.Validator;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
 import com.devworks.cloudcommerce.module.account.dto.RoleDTO;
+import com.devworks.cloudcommerce.module.account.dto.input.role.AssignPermissionsInput;
 import com.devworks.cloudcommerce.module.account.mapper.RoleMapper;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
@@ -20,8 +21,11 @@ import java.util.UUID;
 public class RoleService implements RoleServiceRules {
   private final RoleRepository roleRepository;
 
-  public RoleService(RoleRepository roleRepository) {
+  private final PermissionService permissionService;
+
+  public RoleService(RoleRepository roleRepository, PermissionService permissionService) {
     this.roleRepository = roleRepository;
+    this.permissionService = permissionService;
   }
 
   @Override
@@ -74,6 +78,14 @@ public class RoleService implements RoleServiceRules {
 
   public boolean existsRole(String role) {
     return roleRepository.existsByName(role);
+  }
+
+  public void assignPermissions(UUID roleId, AssignPermissionsInput input) {
+    var existsRole = findById(roleId);
+    var validPermissions = permissionService.getValidPermissionsByUUID(input.permissions());
+
+    existsRole.setPermissions(validPermissions);
+    roleRepository.save(RoleMapper.toEntity(existsRole));
   }
 }
 
