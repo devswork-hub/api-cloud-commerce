@@ -734,6 +734,35 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Access",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userUUID\": \"cf5c7d2a-ec85-456d-b075-2a5bde63372d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{_}}/access",
+					"host": [
+						"{{_}}"
+					],
+					"path": [
+						"access"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
