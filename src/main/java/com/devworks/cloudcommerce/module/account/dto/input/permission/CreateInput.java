@@ -6,10 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 public record CreateInput(
-    @NotNull(message = "attribute role_id is required")
-    @JsonProperty("role_id")
-    UUID roleId,
-
     @NotNull(message = "attribute resource_id is required")
     @JsonProperty("resource_id")
     UUID resourceId,

@@ -19,11 +19,9 @@ import java.util.UUID;
 
 @Service
 public class ResourceService {
-  private final ActionService actionService;
   private final ResourceRepository resourceRepository;
 
-  public ResourceService(ActionService actionService, ResourceRepository resourceRepository) {
-    this.actionService = actionService;
+  public ResourceService(ResourceRepository resourceRepository) {
     this.resourceRepository = resourceRepository;
   }
 
@@ -34,10 +32,6 @@ public class ResourceService {
       throw new BadRequestException("Resource already exists");
 
     var resource = ResourceMapper.toEntity(request);
-
-    if(!request.getActions().isEmpty()) {
-      resource.setActions(actionService.getValidActions(request.getActions()));
-    }
 
     return resourceRepository.save(resource);
   }
@@ -50,9 +44,6 @@ public class ResourceService {
       findedResource.setName(input.name());
 
     findedResource.setActive(input.active());
-
-    if (input.actions() != null && !input.actions().isEmpty())
-      findedResource.setActions(actionService.getValidActions(input.actions()));
 
     findedResource.setUpdatedAt(LocalDateTime.now());
 
