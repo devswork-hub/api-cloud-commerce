@@ -136,49 +136,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "Assign resources to role",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{_admintoken}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"resourcesIds\": [\n        \"b7a8be35-6166-4b2e-9a96-58fcba50a04a\"\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{_}}/role/assign?roleId=2df84c7d-421b-4237-b128-b963ced93ccf",
-									"host": [
-										"{{_}}"
-									],
-									"path": [
-										"role",
-										"assign"
-									],
-									"query": [
-										{
-											"key": "roleId",
-											"value": "2df84c7d-421b-4237-b128-b963ced93ccf"
-										}
-									]
-								}
-							},
-							"response": []
 						}
 					]
 				},
@@ -204,13 +161,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{_}}/user/321635a2-0ac4-42cd-a952-6ec3a0c54827",
+											"raw": "{{_}}/user/e30b05fa-1d5a-4088-a8f4-d3ea72aaa644",
 											"host": [
 												"{{_}}"
 											],
 											"path": [
 												"user",
-												"321635a2-0ac4-42cd-a952-6ec3a0c54827"
+												"e30b05fa-1d5a-4088-a8f4-d3ea72aaa644"
 											]
 										}
 									},
@@ -243,6 +200,44 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "# Assign roles to single user",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{_admintoken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \"roles_ids\": [\"f0021367-7037-4cff-b044-27061bad8744\"] }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{_}}/user/e30b05fa-1d5a-4088-a8f4-d3ea72aaa644/assign",
+											"host": [
+												"{{_}}"
+											],
+											"path": [
+												"user",
+												"e30b05fa-1d5a-4088-a8f4-d3ea72aaa644",
+												"assign"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -265,7 +260,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{_}}/user/email?email=local001@email.com",
+											"raw": "{{_}}/user/email?email=admin@email.com",
 											"host": [
 												"{{_}}"
 											],
@@ -276,7 +271,7 @@
 											"query": [
 												{
 													"key": "email",
-													"value": "local001@email.com"
+													"value": "admin@email.com"
 												}
 											]
 										}
@@ -366,7 +361,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"local001@email.com\",\n    \"cpf\": \"12147178454\"\n}",
+									"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"customer@email.com\",\n    \"cpf\": \"12147178454\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -443,13 +438,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{_}}/resource/2fbe3df1-7c22-4c3c-a81e-ce92df96d179",
+											"raw": "{{_}}/resource/94e3462c-ea26-4954-acb2-b3adcdf5fbcd",
 											"host": [
 												"{{_}}"
 											],
 											"path": [
 												"resource",
-												"2fbe3df1-7c22-4c3c-a81e-ce92df96d179"
+												"94e3462c-ea26-4954-acb2-b3adcdf5fbcd"
 											]
 										}
 									},
@@ -480,13 +475,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{_}}/resource/2fbe3df1-7c22-4c3c-a81e-ce92df96d179",
+											"raw": "{{_}}/resource/94e3462c-ea26-4954-acb2-b3adcdf5fbcd",
 											"host": [
 												"{{_}}"
 											],
 											"path": [
 												"resource",
-												"2fbe3df1-7c22-4c3c-a81e-ce92df96d179"
+												"94e3462c-ea26-4954-acb2-b3adcdf5fbcd"
 											]
 										}
 									},
@@ -600,54 +595,13 @@
 					]
 				},
 				{
-					"name": "role_resource",
+					"name": "permission",
 					"item": [
 						{
 							"name": "{uuid}",
 							"item": [
 								{
-									"name": "* Retrieve all resources of a function",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{_admintoken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{_}}/role/71e9c988-81fb-4312-8cf8-b5cb9c79fef8/resources",
-											"host": [
-												"{{_}}"
-											],
-											"path": [
-												"role",
-												"71e9c988-81fb-4312-8cf8-b5cb9c79fef8",
-												"resources"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "# Assign resource to role",
+									"name": "# Create a single permission",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -663,7 +617,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"resources_ids\": [\"2692fade-b72d-4f8f-a5eb-f7c64532fe96\"]\n}",
+											"raw": "{\n    \"action_id\": \"58f57cfd-1aca-459a-9954-dff7f41f66be\",\n    \"resource_id\": \"98fd6de4-76dc-402a-a63a-56dc1b1b45a6\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -671,14 +625,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{_}}/role/71e9c988-81fb-4312-8cf8-b5cb9c79fef8/resources",
+											"raw": "{{_}}/permission",
 											"host": [
 												"{{_}}"
 											],
 											"path": [
-												"role",
-												"71e9c988-81fb-4312-8cf8-b5cb9c79fef8",
-												"resources"
+												"permission"
 											]
 										}
 									},
@@ -695,7 +647,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"customer@email.com\",\n    \"password\": \"123123\"\n}",
+							"raw": "{\n    \"first_name\": \"Deyvison\",\n    \"last_name\": \"Borges\",\n    \"email\": \"admin@email.com\",\n    \"password\": \"123123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
