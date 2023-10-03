@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.module.account.service;
 import com.devworks.cloudcommerce.module.account.dto.UserDTO;
 import com.devworks.cloudcommerce.module.account.model.Module;
 import com.devworks.cloudcommerce.module.account.model.Permission;
+import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.model.Role;
 import com.devworks.cloudcommerce.module.account.repository.RoleRepository;
 import org.springframework.stereotype.Service;
@@ -50,41 +51,31 @@ public class AccessService {
         for (Module module : permission.getModules()) {
             String moduleName = module.getName();
             String actionName = permission.getAction().getName();
-            Map<String, Object> existingModule = findExistingModule(modules, moduleName);
+            var resource = permission.getResource();
+            Map<String, Object> existingModule;
 
-            if (existingModule == null) {
-                existingModule = createNewModule(moduleName, module);
-                modules.add(existingModule);
-            }
-
-            List<String> actions = (List<String>) existingModule.get("actions");
+            List<String> actions = new ArrayList<>();
             actions.add(actionName);
+
+            existingModule = createNewModule(moduleName, module, resource, actions);
+            modules.add(existingModule);
         }
     }
 
-    private Map<String, Object> findExistingModule(List<Map<String, Object>> modules, String moduleName) {
-        for (Map<String, Object> moduleData : modules) {
-            if (moduleData.get("name").equals(moduleName)) {
-                return moduleData;
-            }
-        }
-        return null;
-    }
-
-    private Map<String, Object> createNewModule(String moduleName, Module module) {
+    private Map<String, Object> createNewModule(String moduleName, Module module, Resource resource, List<String> actions) {
         Map<String, Object> newModule = new LinkedHashMap<>();
         newModule.put("name", moduleName);
-        newModule.put("active", true);
-        newModule.put("resource", createResource(module));
-        newModule.put("actions", new ArrayList<String>());
+        newModule.put("active", module.isActive());
+        newModule.put("resource", createResource(resource));
+        newModule.put("actions", actions);
         return newModule;
     }
 
-    private Map<String, Object> createResource(Module module) {
+    private Map<String, Object> createResource(Resource res) {
         Map<String, Object> resource = new LinkedHashMap<>();
-        resource.put("name", module.getName());
-        resource.put("active", module.isActive());
-        resource.put("path", new ArrayList<>());
+        resource.put("name", res.getName());
+        resource.put("active", res.isActive());
+        resource.put("path", res.getPath());
         return resource;
     }
 
