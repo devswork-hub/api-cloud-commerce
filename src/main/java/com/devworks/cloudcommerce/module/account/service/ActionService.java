@@ -1,6 +1,7 @@
 package com.devworks.cloudcommerce.module.account.service;
 
 import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
+import com.devworks.cloudcommerce.module.account.constants.ActionType;
 import com.devworks.cloudcommerce.module.account.model.Action;
 import com.devworks.cloudcommerce.module.account.repository.ActionRepository;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,15 @@ public class ActionService {
     public Action findById(UUID uuid) {
         return actionRepository.findById(uuid)
             .orElseThrow(() -> new NotFoundException("Action not found"));
+    }
+
+    /*
+    * Utility methods
+    * */
+    public static Action getActionByNameInActionType(ActionType actionType, ActionRepository actionRepository) {
+        return actionRepository.findByName(actionType.getName())
+            .orElseGet(() -> actionRepository.save(Action.builder()
+                .name(actionType.getName())
+                .build()));
     }
 }
