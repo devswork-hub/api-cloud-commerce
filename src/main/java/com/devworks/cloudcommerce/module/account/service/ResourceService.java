@@ -5,7 +5,6 @@ import com.devworks.cloudcommerce.common.exceptions.NotFoundException;
 import com.devworks.cloudcommerce.module.account.dto.ResourceDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.UpdateResourceInput;
 import com.devworks.cloudcommerce.module.account.mapper.ResourceMapper;
-import com.devworks.cloudcommerce.module.account.model.Department;
 import com.devworks.cloudcommerce.module.account.model.Resource;
 import com.devworks.cloudcommerce.module.account.repository.ResourceRepository;
 import org.springframework.stereotype.Service;
