@@ -28,3 +28,10 @@
 - Postman
 - DBeaver
 - BeeKeeper
+
+## Base de Conhecimento
+https://bazaar.ui-lib.com/#section-3
+https://evershop.io/
+
+demo@evershop.io
+123456
