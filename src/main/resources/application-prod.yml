@@ -1,18 +1,18 @@
 spring:
   application:
     name: api-cloud-commerce
-  profiles:
-    active: local
+  config:
+    activate:
+      on-profile: prod
   datasource:
-    username: local
-    password: local
-    url: jdbc:postgresql://localhost:5432/cloud-commerce-db
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
+    url: jdbc:postgresql://${PROD_DB_HOST}/${PROD_DB_DATABASE}
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
 
 server:
-  port: 4000
   servlet:
     context-path: /api

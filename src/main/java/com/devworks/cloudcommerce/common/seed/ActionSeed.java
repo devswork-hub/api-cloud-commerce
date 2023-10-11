@@ -4,6 +4,7 @@ import com.devworks.cloudcommerce.module.account.constants.ActionType;
 import com.devworks.cloudcommerce.module.account.model.Action;
 import com.devworks.cloudcommerce.module.account.repository.ActionRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class ActionSeed {
     }
 
     @PostConstruct
+    @Order(1)
     public void init() {
         Set<Action> actions = new HashSet<>();
 
