@@ -1,7 +1,6 @@
 package com.devworks.cloudcommerce.module.account.dto;
 
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
-import com.devworks.cloudcommerce.module.account.model.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -10,7 +9,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -18,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserCredentialsDTO {
+public class CredentialsDTO {
     /**
      * Internal Base Attributes
      */

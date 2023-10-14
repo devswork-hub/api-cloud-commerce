@@ -4,7 +4,7 @@ import com.devworks.cloudcommerce.common.security.EncryptingService;
 import com.devworks.cloudcommerce.common.utils.PasswordUtils;
 import com.devworks.cloudcommerce.module.account.constants.AccountStatusType;
 import com.devworks.cloudcommerce.module.account.constants.RolesType;
-import com.devworks.cloudcommerce.module.account.dto.UserCredentialsDTO;
+import com.devworks.cloudcommerce.module.account.dto.CredentialsDTO;
 import com.devworks.cloudcommerce.module.account.dto.input.RegisterInput;
 import com.devworks.cloudcommerce.module.account.mapper.UserMapper;
 import com.devworks.cloudcommerce.module.account.model.*;
@@ -47,7 +47,7 @@ public class RegisterService {
         var combinedPasswordAndSalt = input.getPassword() + salt;
         var passwordHash = PasswordUtils.encode(combinedPasswordAndSalt);
 
-        var userCredentials = new UserCredentialsDTO();
+        var userCredentials = new CredentialsDTO();
         userCredentials.setEmail(input.getEmail());
         userCredentials.setPasswordSalt(salt);
         userCredentials.setPasswordHash(passwordHash);

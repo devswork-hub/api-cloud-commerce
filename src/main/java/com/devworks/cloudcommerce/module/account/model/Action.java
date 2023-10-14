@@ -3,6 +3,7 @@ package com.devworks.cloudcommerce.module.account.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "actions")
-public class Action {
+public class Action implements Serializable {
     /**
      * Internal Base Attributes
      */

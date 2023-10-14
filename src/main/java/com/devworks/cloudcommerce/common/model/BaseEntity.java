@@ -15,8 +15,13 @@ public class BaseEntity {
 
     @Column(name = "created_at", updatable = false)
     @Builder.Default
-    private final LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    private void insertCreatedAt() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
